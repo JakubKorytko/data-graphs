@@ -6,7 +6,7 @@
 - [Funkcje](#funkcje)
 - [Instalacja](#instalacja)
   - [Wymagania](#wymagania)
-  - [Instalacja](#instalacja-1)
+  - [Krok po kroku](#krok-po-kroku)
 - [Konfiguracja](#konfiguracja)
   - [Zmiana domyślnego adresu klienta (Cors)](#zmiana-domyślnego-adresu-klienta-cors)
   - [Zmiana domyślnego adresu serwera](#zmiana-domyślnego-adresu-serwera)
@@ -20,7 +20,6 @@
 - [Testy](#testy)
   - [Testowanie serwera](#testowanie-serwera)
   - [Testowanie klienta](#testowanie-klienta)
-- [Licencja](#licencja)
 
 
 Aplikacja składa się z dwóch części: frontendu i backendu, które są zaimplementowane w dwóch osobnych folderach "server" i "client". Backend został stworzony w frameworku Laravel w języku PHP, natomiast frontend w React z użyciem TypeScriptu. Aplikacja umożliwia pobieranie danych z bazy danych (CRUD) dotyczących kanałów pozyskiwania klientów oraz ilości klientów zdobytych za pomocą poszczególnych kanałów, a następnie wyświetla je wraz z wykresem kołowym. Użytkownicy mogą dodawać, edytować i usuwać rekordy w bazie danych za pomocą intuicyjnego UI. Aplikacja posiada pełną obsługę błedów (po stronie serwera jak i klienta). Do generowania wykresów wykorzystana została biblioteka "react-chartjs-2".
@@ -90,7 +89,7 @@ Biblioteki i narzędzia dodatkowe:
 - NPM lub Yarn do zarządzania zależnościami w projekcie frontendowym
 - Działająca bazą danych (preferowany MySQL) do przechowywania danych
 
-## Instalacja
+## Krok po kroku
 
 1. Sklonuj repozytorium poleceniem
 ```
@@ -212,7 +211,3 @@ lub
 ```
 yarn test
 ```
-
-# Licencja
-
-Aplikacja jest udostępniana na licencji MIT.
