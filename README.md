@@ -7,8 +7,16 @@
 - [Instalacja](#instalacja)
   - [Wymagania](#wymagania)
   - [Instalacja](#instalacja-1)
-- [Zmiana domyślnego adresu klienta (Cors)](#zmiana-domyślnego-adresu-klienta-cors)
-- [Zmiana domyślnego adresu serwera](#zmiana-domyślnego-adresu-serwera)
+- [Konfiguracja](#konfiguracja)
+  - [Zmiana domyślnego adresu klienta (Cors)](#zmiana-domyślnego-adresu-klienta-cors)
+  - [Zmiana domyślnego adresu serwera](#zmiana-domyślnego-adresu-serwera)
+- [Ścieżki API](#ścieżki-api)
+  - [GET /channels/read](#get-channelsread)
+  - [POST /channels/create](#post-channelscreate)
+    - [Parametry](#parametry)
+  - [PUT /channels/update/{id}](#put-channelsupdateid)
+    - [Parametry](#parametry-1)
+  - [DELETE /channels/delete/{id}](#delete-channelsdeleteid)
 - [Testy](#testy)
   - [Testowanie serwera](#testowanie-serwera)
   - [Testowanie klienta](#testowanie-klienta)
@@ -133,16 +141,57 @@ yarn install
 ```
 npm run dev
 ```
+lub
+```
+yarn dev
+```
 
 Aplikacja jest dostępna pod adresem "http://localhost:5173" (domyślny port).
 
-# Zmiana domyślnego adresu klienta (Cors)
+# Konfiguracja
+
+## Zmiana domyślnego adresu klienta (Cors)
+
+Aby uruchomić klienta na innym adresie niż domyślny, należy ustawić zmienną środowiskową "PORT" przed uruchomieniem klienta. Przykładowe ustawienie:
+```
+PORT=5173
+```
 
 W przypadku użycia innego adresu niż "http://localhost" lub "http://127.0.0.1" (porty są dowolne) do uruchomienia aplikacji, należy zmienić ustawienia CORS w pliku "server/app/Http/Middleware/Cors.php". Wartość zmiennej "allowed_origins" powinna zawierać adres serwera frontendowego.
 
-# Zmiana domyślnego adresu serwera
+## Zmiana domyślnego adresu serwera
+
+Aby zmienić port domyślny serwera, należy zmienić ustawienia w pliku ".env". Wartość zmiennej "SERVER_PORT" powinna zawierać port serwera.
 
 W przypadku użycia innego adresu niż domyślny do uruchomienia serwera backendowego, należy zmienić ustawienia w pliku "client/src/utils/api.util.js". Wartość zmiennej `url` (3 linijka) powinna zawierać adres serwera backendowego wraz z portem (bez slasha końcowego).
+
+# Ścieżki API
+
+## GET /channels/read
+
+Zwraca listę wszystkich kanałów pozyskania klientów.
+
+## POST /channels/create
+
+Tworzy nowy kanał pozyskania klientów.
+
+### Parametry
+
+- name: nazwa kanału pozyskania klientów (string, wymagany)
+- clients: liczba klientów pozyskanych przez kanał (int, wymagany)
+
+## PUT /channels/update/{id}
+
+Aktualizuje istniejący kanał pozyskania klientów.
+
+### Parametry
+
+- name: nowa nazwa kanału pozyskania klientów (string, wymagany)
+- clients: nowa liczba klientów pozyskanych przez kanał (int, wymagany)
+
+## DELETE /channels/delete/{id}
+
+Usuwa istniejący kanał pozyskania klientów.
 
 # Testy
 
