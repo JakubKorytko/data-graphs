@@ -112,22 +112,22 @@ DB_PASSWORD=
 
 W pliku ".env" znajdują się również inne ustawienia, które można zmienić wedle uznania. Np. ustawienie "SERVER_PORT" na 3000 spowoduje, że serwer będzie dostępny pod adresem "http://127.0.0.1:3000".
 
-1. Wykonaj migrację bazy danych poleceniem:
+4. Wykonaj migrację bazy danych poleceniem:
 ```
 php artisan migrate
 ```
 
-1. Wykonaj seedowanie bazy danych poleceniem:
+5. Wykonaj seedowanie bazy danych poleceniem:
 ```
 php artisan db:seed
 ```
 
-1. Uruchom serwer backendowy poleceniem:
+6. Uruchom serwer backendowy poleceniem:
 ```
 php artisan serve
 ```
 
-1. Przejdź do folderu "client" i wykonaj polecenie:
+7. Przejdź do folderu "client" i wykonaj polecenie:
 ```
 npm install
 ```
@@ -136,7 +136,7 @@ lub
 yarn install
 ```
 
-1. Uruchom serwer frontendowy poleceniem:
+8. Uruchom serwer frontendowy poleceniem:
 ```
 npm run dev
 ```
