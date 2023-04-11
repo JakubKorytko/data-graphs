@@ -122,12 +122,17 @@ php artisan migrate
 php artisan db:seed
 ```
 
-6. Uruchom serwer backendowy poleceniem:
+6. Stwórz klucz aplikacji poleceniem:
+```
+php artisan key:generate
+```
+
+7. Uruchom serwer backendowy poleceniem:
 ```
 php artisan serve
 ```
 
-7. Przejdź do folderu "client" i wykonaj polecenie:
+8. Przejdź do folderu "client" i wykonaj polecenie:
 ```
 npm install
 ```
@@ -136,7 +141,7 @@ lub
 yarn install
 ```
 
-8. Uruchom serwer frontendowy poleceniem:
+9. Uruchom serwer frontendowy poleceniem:
 ```
 npm run dev
 ```
