@@ -42,7 +42,7 @@ const NotficationsWrapper = (props: NotificationWrapperProps) => {
     useEffect(() => {
         return () => {
             dispatch({ type: "clear" });
-            [1, 200, 500, 409].forEach((timeout) => {
+            [1, 200, 500, 409, 1000, 1001].forEach((timeout) => {
                 clearTimeout(removeTimeouts[timeout]);
             })
         }
