@@ -148,22 +148,29 @@ function AddChannelForm(props: { columns_properties: ColumnsProperties | false }
   }
 
   return (
-    <Form>
-      <Form.Group className="mb-3">
-        <Form.Label>Nazwa</Form.Label>
-        <Form.Control type="text" value={name} onChange={nameHandler} placeholder="Nazwa kanału" />
-        <Form.Text className="text-muted">
-        Podaj nazwe kanału pozyskania klienta
-        </Form.Text>
-      </Form.Group>
+    <Form noValidate validated={validation.checked} onSubmit={submitHandler}>
+      {/* <form > */}
+        <Form.Group className="mb-3">
+          <Form.Label>Nazwa</Form.Label>
+          <Form.Control isInvalid={validation.name.isValid} type="text" required value={name} onChange={nameHandler} placeholder="Nazwa kanału" />
+          <Form.Text className="text-muted">
+            Podaj nazwe kanału pozyskania klienta (maksymalna długość tekstu: {limit('name')})
+          </Form.Text>
+          {feedbackElement(validation.name.message, validation.name.isValid)}
+        </Form.Group>
 
-      <Form.Group className="mb-3">
-        <Form.Label>Ilość klientów</Form.Label>
-        <Form.Control type="number" pattern="\d+" value={clients + '' /* [1] */} onChange={clientsHandler} placeholder="Ilość klientów" />
-      </Form.Group>
-      <Button variant="primary" type="submit">
-        Dodaj
-      </Button>
+        <Form.Group className="mb-3">
+          <Form.Label>Ilość klientów</Form.Label>
+          <Form.Control isInvalid={validation.clients.isValid} type="number" pattern="\d+" value={clients + '' /* [1] */} onChange={clientsHandler} placeholder="Ilość klientów" />
+          <Form.Text className="text-muted">
+            Maksymalna liczba: {limit('clients')}
+          </Form.Text>
+          {feedbackElement(validation.clients.message, validation.clients.isValid)}
+        </Form.Group>
+        <Button variant="primary" type="submit">
+          Dodaj
+        </Button>
+      {/* </form> */}
     </Form>
   );
 }
