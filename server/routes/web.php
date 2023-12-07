@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AcquisitionChannelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return "API is running";
 });
+
+Route::get("/status", function () {
+    return response()->json([
+        "status" => "OK"
+    ], 200);
+});
+
+Route::get('/channels', [AcquisitionChannelController::class, 'read']);
+
+Route::post('/channels/add', [AcquisitionChannelController::class, 'create']);
+
+Route::put('/channels/update/{id}', [AcquisitionChannelController::class, 'update']);
+
+Route::delete('/channels/delete/{id}', [AcquisitionChannelController::class, 'delete']);
