@@ -3,12 +3,7 @@ import { ApiData, ColumnsProperties } from "../utils/api.util"
 export interface NotificationsProps {
 }
 
-export interface AddChannelFormProps {
-    reconnect: Function,
-    notify: Function,
-    fetchData: Function,
-    enabled: boolean,
-    columns_properties: ColumnsProperties | false,
+export interface TableControlsProps {
     clients: {value: number, set: Function},
     name: {value: string, set: Function}
 }
