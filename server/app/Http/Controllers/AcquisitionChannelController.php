@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\AcquisitionChannel;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateRequest;
 
 class AcquisitionChannelController extends Controller
 {
@@ -35,22 +36,30 @@ class AcquisitionChannelController extends Controller
         return $record;
     }
 
-    public function create(Request $request)
+    public function create(CreateRequest $request)
     {
 
-        $result = $request->validate([
-            'name' => 'required'
-        ]);
+        // $messages = [
+            // 'required' => 'The :attribute field is required.',
+            // 'size' => 'The :attribute must be exactly :size.',
+            // 'between' => 'The :attribute value :input is not between :min - :max.',
+            // 'in' => 'The :attribute must be one of the following types: :values',
+        // ];
 
-        if ($this->find('name', $result['name'])) {
-            return response()->json([
-                'message' => 'Channel already exists'
-            ], 409);
-        }
+        // $result = $request->validate([
+        //     'name' => 'required|unique:acquisition_channels|max:65535|min:1|regex:/^[a-zA-Z0-9 ]*$/',
+        //     'clients' => 'required|integer|max:2147483647|min:0',
+        // ]);
 
-        $result['clients'] = $result['clients'] ?? 0;
+        // if ($this->find('name', $request['name'])) {
+        //     return response()->json([
+        //         'message' => 'Channel already exists'
+        //     ], 409);
+        // }
+
+        $request['clients'] = $request['clients'] ?? 0;
         
-        // AcquisitionChannel::create($request->post());
+        AcquisitionChannel::create($request->post());
 
         return response()->json([
             'message' => 'Channel created successfully'
