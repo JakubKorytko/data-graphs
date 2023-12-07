@@ -55,8 +55,6 @@ const TableForm = (props: any) => {
         setClients(0);
         fetchData();
         break;
-      case 500:
-        reconnect(info);
       default:
         notify(info, 5);
         break;
