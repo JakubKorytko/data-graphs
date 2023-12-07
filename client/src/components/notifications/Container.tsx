@@ -10,19 +10,17 @@ const Notifications = (props: NotificationsProps) => {
     const { list, remove } = useContext(NotificationsContext);
 
     return (
-        <Row><Col>
-            <ToastContainer position="top-end">
-                {list.map((notification) => {
-                    
-                    const notificationObject = generate(notification.code, notification.message);
+        <ToastContainer position="top-end" id="toaster">
+            {list.map((notification) => {
+                
+                const notificationObject = generate(notification.code, notification.message);
 
-                    return (<Notification remove={remove.bind(null, notification.code)} key={notificationObject.code}>
-                        <Notification.Title>{notificationObject.title}</Notification.Title>
-                        <Notification.Body>{notificationObject.body}</Notification.Body>
-                    </Notification>)
-                })}
-            </ToastContainer>
-        </Col></Row>
+                return (<Notification remove={remove.bind(null, notification.code)} key={notificationObject.code}>
+                    <Notification.Title>{notificationObject.title}</Notification.Title>
+                    <Notification.Body>{notificationObject.body}</Notification.Body>
+                </Notification>)
+            })}
+        </ToastContainer>
     )
 
 }
