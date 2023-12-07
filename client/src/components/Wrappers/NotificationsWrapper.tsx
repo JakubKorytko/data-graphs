@@ -28,8 +28,8 @@ const NotficationsWrapper = (props: NotificationWrapperProps) => {
     let removeTimeouts: number[] = [];
 
     const notify = (object: { code: number, message: string }, seconds: number) => {
-        if (object.code === 500 || object.code === 200) dispatch({ type: "remove", object: { code: 1 } })
-        if (object.code === 200) dispatch({ type: "remove", object: { code: 500 } });
+        if (object.code === 500 || object.code === 200) dispatch({ type: "remove", object: { code: 1, message: "Pobieranie danych z serwera..." } })
+        if (object.code === 200) dispatch({ type: "remove", object: { code: 500, message: "Internal server error" } });
 
         dispatch({ type: "add", object: object });
 
@@ -41,7 +41,7 @@ const NotficationsWrapper = (props: NotificationWrapperProps) => {
 
     useEffect(() => {
         return () => {
-            dispatch({ type: "clear" });
+            dispatch({ type: "clear", object: {code: 0, message: "clear"} });
             [1, 200, 500, 409, 1000, 1001].forEach((timeout) => {
                 clearTimeout(removeTimeouts[timeout]);
             })
@@ -51,7 +51,7 @@ const NotficationsWrapper = (props: NotificationWrapperProps) => {
     const contextProxy = {
         notify: notify,
         list: notifications,
-        remove: (code: number) => { dispatch({ type: "remove", object: { code: code } }) }
+        remove: (code: number) => { dispatch({ type: "remove", object: { code: code, message: "remove" } }) }
     }
 
     return (
