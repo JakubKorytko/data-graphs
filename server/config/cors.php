@@ -14,7 +14,7 @@ return [
     | To learn more: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
     |
     */
-    'paths' => ['channels/*', 'status'],
+    'paths' => ['channels/**', 'status',],
 
     'paths' => ['*'],
 
