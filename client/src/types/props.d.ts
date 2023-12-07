@@ -3,6 +3,12 @@ import { ApiData, ColumnsProperties } from "../utils/api.util"
 export interface NotificationsProps {
 }
 
+export interface DeleteConfirmProps {
+    callback: Function,
+    show: boolean,
+    id: number
+}
+
 export interface TableControlsProps {
     clients: {value: number, set: Function},
     name: {value: string, set: Function}
@@ -27,7 +33,8 @@ export interface TableContainerProps {
 export type TableProps = any
 
 export interface DataWrapperProps {
-    children: React.ReactNode
+    children: React.ReactNode,
+    connection: boolean,
 }
 
 export interface NotificationWrapperProps {
