@@ -1,6 +1,8 @@
 import { ApiData, CustomError } from "../types/api";
 
-const url = `http://127.0.0.1:8000/channels`;
+const url = `http://127.0.0.1:8000`;
+const channels_url = `${url}/channels`
+const health_url = `${url}/status`
 
 const handleError = (err: Error): CustomError => {
     return {
