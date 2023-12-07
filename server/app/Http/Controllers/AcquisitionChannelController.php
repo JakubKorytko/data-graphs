@@ -22,21 +22,35 @@ class AcquisitionChannelController extends Controller
         $data = [
             'columns' => $columns,
             'columns_properties' => $customColumnsProperties,
-            'channels' => AcquisitionChannel::orderBy('name','desc')->paginate($limit)
+            'channels' => AcquisitionChannel::select("id", "name", "clients")
+            ->paginate($limit)
         ];
 
         return response()->json($data, 200);
     }
 
+    public function find($column, $value) {
+        $record = AcquisitionChannel::where($column, '=', $value)->first();
+        if ($record === null) return false;
+        return $record;
+    }
+
     public function create(Request $request)
     {
+
         $result = $request->validate([
             'name' => 'required'
         ]);
 
+        if ($this->find('name', $result['name'])) {
+            return response()->json([
+                'message' => 'Channel already exists'
+            ], 409);
+        }
+
         $result['clients'] = $result['clients'] ?? 0;
         
-        AcquisitionChannel::create($request->post());
+        // AcquisitionChannel::create($request->post());
 
         return response()->json([
             'message' => 'Channel created successfully'
