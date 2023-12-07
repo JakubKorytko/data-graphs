@@ -1,12 +1,13 @@
 import { ApiData, CustomMessage, CustomResponse } from "../../../types/api.d";
 import Form from 'react-bootstrap/Form';
+import { TableFormProps } from "../../../types/props";
 import { DataContext, NotificationsContext } from '../../Wrappers/Context';
 import React, { useContext, useState } from 'react';
 import { errorHandler } from '../../../utils/table.util';
 import { limit } from '../../../utils/formsValidator.util';
 import { create } from '../../../utils/api.util';
 
-const TableForm = (props: any) => {
+const TableForm = (props: TableFormProps) => {
 
   const [clients, setClients] = useState(0);
   const [name, setName] = useState('');
