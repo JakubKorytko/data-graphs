@@ -44,7 +44,6 @@ export const update = (id: number, data: {name: string, clients: number}): Promi
 
 export const remove = (id: number ): Promise<CustomMessage | CustomResponse> => {
 
-    console.log(id);
     return new Promise((resolve) => {
         fetch(`${channels_url}/delete/${id}`, {
             method: 'DELETE',
@@ -52,6 +51,7 @@ export const remove = (id: number ): Promise<CustomMessage | CustomResponse> => 
                 "Content-type": "application/json"
             }
         }).then(res => {
+            console.log(res);
             if (res.ok) {
                 resolve(handleResponse(res))
                 return res
