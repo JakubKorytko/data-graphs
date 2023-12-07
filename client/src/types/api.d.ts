@@ -6,9 +6,14 @@ export interface ApiData {
     chartColors: string[];
 }
 
+export interface State { 
+    code: number, 
+    message: string 
+}
+
 export interface Channels {
     current_page: number;
-    data: any[];
+    data: Channel[];
     first_page_url: string;
     from: null;
     last_page: number;
@@ -20,6 +25,12 @@ export interface Channels {
     prev_page_url: null;
     to: null;
     total: number;
+}
+
+export interface Channel {
+    id: number;
+    name: string;
+    clients: number;
 }
 
 export interface Link {
