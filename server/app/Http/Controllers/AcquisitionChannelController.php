@@ -76,14 +76,14 @@ class AcquisitionChannelController extends Controller
         return response()->json($data, 200);
     }
 
-    public function find($column, $value)
+    public static function find($column, $value)
     {
         $record = AcquisitionChannel::where($column, '=', $value)->first();
         if ($record === null) return false;
         return $record;
     }
 
-    public function customValidate($name, $clients)
+    public static function customValidate($name, $clients)
     {
         $messages_name = AcquisitionChannelController::$messages_name;
         $messages_clients = AcquisitionChannelController::$messages_clients;
