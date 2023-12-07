@@ -1,10 +1,12 @@
+import { Channel } from "../../types/api";
+
 export const options = {
   plugins: {
     datalabels: {
       color: "#FFF", font: {
         size: 15,
       },
-      formatter: (value: number, context: any) => {
+      formatter: (value: number) => {
        if (value === 0) return '';
       },
       textStrokeColor: 'black',
@@ -16,7 +18,7 @@ export const options = {
   }
 }
 
-export const data = (data: false | any[], colors: string[]) => {
+export const data = (data: false | Channel[], colors: string[]) => {
 
   const config = {
     labels: data ? data.map(item => item.name) : [],
