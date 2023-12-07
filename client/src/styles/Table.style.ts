@@ -3,7 +3,7 @@ const centerContent = {
     verticalAlign: "middle",
 }
 
-export const style = {
+const style = {
     center: centerContent,
     percents: {
         width: "100%",
