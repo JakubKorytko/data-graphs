@@ -7,7 +7,28 @@ import Form from 'react-bootstrap/Form';
 import { ColumnsProperties } from "../utils/api.d";
 import { useState } from 'react';
 
-function AddChannelForm(props: {columns_properties: ColumnsProperties|false}) {
+interface Validation {
+  checked: boolean;
+  name:    Validator;
+  clients: Validator;
+}
+
+interface Validator {
+  message: string;
+  isValid: boolean;
+}
+
+interface Errors {
+  name: Error;
+  clients: Error;
+}
+
+interface Error {
+  condition: boolean;
+  message:   string;
+}
+
+function AddChannelForm(props: { columns_properties: ColumnsProperties | false }) {
 
   const [name, setName] = useState('');
   const [clients, setClients] = useState(0);
