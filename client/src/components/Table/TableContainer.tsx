@@ -1,6 +1,6 @@
 import { Row, Col } from 'react-bootstrap';
 import Table from './Table';
-import TableForm from './TableForm';
+import TableForm from './Form/Container';
 
 const TableContainer = () => {
 
