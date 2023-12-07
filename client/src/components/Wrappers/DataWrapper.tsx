@@ -25,7 +25,7 @@ const DataWrapper = (props: DataWrapperProps) => {
                 const data = res as ApiData;
                 setData({...data, chartColors: chartColors(data.channels.data.length)});
                 
-                notify({ code: 200, message: "Connection established" }, 5);
+                notify({ code: 200, message: "Data fetched from the server" }, 5);
 
                 isFetching = false;
             }
@@ -39,7 +39,7 @@ const DataWrapper = (props: DataWrapperProps) => {
         delayedTimeouts[error.code] && clearTimeout(delayedTimeouts[error.code]);
         delayedTimeouts[error.code] = setTimeout(() => {
 
-            notify({ code: 1, message: "Connection retry" }, 5);
+            notify({ code: 2, message: "Can't fetch the data" }, 5);
             isFetching = false;
             fetchData()
 
@@ -57,7 +57,6 @@ const DataWrapper = (props: DataWrapperProps) => {
         reconnect: reconnectLoop
     }
 
-    
     return <DataContext.Provider value={contextProxy}>{props.children}</DataContext.Provider>
     
 }
