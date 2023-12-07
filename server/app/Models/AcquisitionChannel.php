@@ -11,6 +11,6 @@ class AcquisitionChannel extends Model
 
     protected $fillable = [
         'name',
-        'amount',
+        'clients',
     ];
 }

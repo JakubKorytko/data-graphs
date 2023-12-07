@@ -34,7 +34,7 @@ class AcquisitionChannelController extends Controller
             'name' => 'required'
         ]);
 
-        $result['amount'] = $result['amount'] ?? 0;
+        $result['clients'] = $result['clients'] ?? 0;
         
         AcquisitionChannel::create($request->post());
 
@@ -47,7 +47,7 @@ class AcquisitionChannelController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'amount' => 'required'
+            'clients' => 'required'
         ]);
 
         $channel->fill($request -> post())->save();

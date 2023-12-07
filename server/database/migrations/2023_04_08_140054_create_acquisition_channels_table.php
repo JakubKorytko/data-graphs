@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('acquisition_channels', function (Blueprint $table) {
             $table->id();
             $table->string("name");
-            $table->integer("amount");
+            $table->integer("clients");
             $table->timestamps();
             $table->unique("name");
         });
