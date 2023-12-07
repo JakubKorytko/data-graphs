@@ -6,6 +6,13 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { ColumnsProperties } from "../utils/api.d";
 import { useState } from 'react';
+import { AddChannelFormProps } from '../types/props';
+
+export interface CustomError {
+  type: string,
+  code: number,
+  message: string
+}
 
 interface Validation {
   checked: boolean;
@@ -19,16 +26,24 @@ interface Validator {
 }
 
 interface Errors {
-  name: Error;
-  clients: Error;
+  name: SingleError;
+  clients: SingleError;
 }
 
-interface Error {
+interface SingleError {
   condition: boolean;
   message:   string;
 }
 
-function AddChannelForm(props: { columns_properties: ColumnsProperties | false }) {
+const handleError = (err: Error): CustomError => {
+  return {
+      type: 'error',
+      code: Number(err.name),
+      message: err.message
+  };
+};
+
+function AddChannelForm(props: AddChannelFormProps) {
 
   const [name, setName] = useState('');
   const [clients, setClients] = useState(0);
@@ -52,7 +67,7 @@ function AddChannelForm(props: { columns_properties: ColumnsProperties | false }
     }
   }
 
-  const nameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const nameHandler = (e: React.ChangeEvent<HTMLInputElement>, ) => {
     const value = e.target.value;
     if (value.length >= limit('name')) return;
     setName(value)
@@ -108,9 +123,9 @@ function AddChannelForm(props: { columns_properties: ColumnsProperties | false }
     e.preventDefault();
     e.stopPropagation();
 
-    const errors = errorHandler();
+    // const errors = errorHandler();
 
-    if (errors) return;
+    // if (errors) return;
     // }
     
     const data = {
@@ -118,61 +133,82 @@ function AddChannelForm(props: { columns_properties: ColumnsProperties | false }
       clients: clients
     };
 
+    new Promise((resolve, reject) => {
     fetch('http://127.0.0.1:8000/channels/create', {
       method: 'POST',
       headers: {
         "Content-type": "application/json"
       },
       body: JSON.stringify(data)
-    }).then(res => submitFeedback(res));
-
-    setName('');
-    setClients(0);
-
+    }).then(res => resolve(res)).catch((error) => {
+      const err = handleError(error);
+      resolve(err);
+    });
+    }).then(
+      (response) => submitFeedback(response)
+    )
   }
 
   const feedbackElement = (message: string, isValid: boolean) => {
-    console.log(message, isValid);
       return <Form.Control.Feedback type={isValid ? "valid" : "invalid"}>{message}</Form.Control.Feedback>
   }
 
   const submitFeedback = async (response: any) => {
     const status = response.status;
-    const json = await response.json();
-    const message = json.message;
-
-    if (status === 209) {
-      
+    const json = await response.text();
+    console.log(json);
+    // const message = json.message;
+    const info = {code: status, message: response.statusText};
+    switch (status) {
+      case 201:
+        setName('');
+        setClients(0);
+        props.fetchData();
+        break;
+      // case 209:
+      case 500:
+        props.reconnect(info);
+      default:
+        props.notify(info, 5);
+        break;
     }
 
   }
 
+  const centerContent = {
+    textAlign: "center" as "center",
+    verticalAlign: "middle"
+  }
+    {/* <Form noValidate validated={validation.checked} onSubmit={submitHandler}>*/}
   return (
-    <Form noValidate validated={validation.checked} onSubmit={submitHandler}>
-      {/* <form > */}
-        <Form.Group className="mb-3">
-          <Form.Label>Nazwa</Form.Label>
-          <Form.Control isInvalid={validation.name.isValid} type="text" required value={name} onChange={nameHandler} placeholder="Nazwa kanału" />
-          <Form.Text className="text-muted">
-            Podaj nazwe kanału pozyskania klienta (maksymalna długość tekstu: {limit('name')})
-          </Form.Text>
-          {feedbackElement(validation.name.message, validation.name.isValid)}
+      <tr>
+      <td style={centerContent}>5</td>
+      <td style={centerContent} colSpan={2}>
+        <Form.Group>
+          {/* <Form.Label>Nazwa</Form.Label> */}
+          <Form.Control disabled={!props.enabled} isInvalid={validation.name.isValid} type="text" required value={name} onChange={nameHandler} placeholder={`Nazwa kanału (maks. długość: ${limit('name')})`} />
+          {/* <Form.Text className="text-muted"> */}
+            {/* (maks. długość: {limit('name')}) */}
+          {/* </Form.Text> */}
+          {/* {feedbackElement(validation.name.message, validation.name.isValid)} */}
         </Form.Group>
-
-        <Form.Group className="mb-3">
-          <Form.Label>Ilość klientów</Form.Label>
-          <Form.Control isInvalid={validation.clients.isValid} type="number" pattern="\d+" value={clients + '' /* [1] */} onChange={clientsHandler} placeholder="Ilość klientów" />
-          <Form.Text className="text-muted">
-            Maksymalna liczba: {limit('clients')}
-          </Form.Text>
-          {feedbackElement(validation.clients.message, validation.clients.isValid)}
+        </td><td style={centerContent} colSpan={2}>
+        <Form.Group>
+          {/* <Form.Label>Ilość klientów</Form.Label> */}
+          <Form.Control disabled={!props.enabled} isInvalid={validation.clients.isValid} type="number" pattern="\d+" value={clients + '' /* [1] */} onChange={clientsHandler} placeholder={`Ilość klientów (maks. liczba: ${limit('clients')})`} />
+          {/* <Form.Text className="text-muted"> */}
+            {/* (maks. liczba: {limit('clients')}) */}
+          {/* </Form.Text> */}
+          {/* {feedbackElement(validation.clients.message, validation.clients.isValid)} */}
         </Form.Group>
-        <Button variant="primary" type="submit">
+        </td><td style={centerContent}>
+        <Button variant="light" disabled={!props.enabled} type="submit">
           Dodaj
         </Button>
-      {/* </form> */}
-    </Form>
+        </td>
+        </tr>
   );
+    {/* </Form>*/}
 }
 
 export default AddChannelForm;
