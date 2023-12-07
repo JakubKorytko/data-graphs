@@ -2,15 +2,30 @@
 
 namespace App\Http\Controllers;
 use App\Models\AcquisitionChannel;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Http\Request;
 
 class AcquisitionChannelController extends Controller
 {
     public function read(Request $request)
     {
+        $columns = Schema::getColumnListing('acquisition_channels');
+        $columns = array_diff($columns, ['created_at', 'updated_at']);
+
+        $customColumnsProperties = [
+            'name' => ['type' => 'string', 'size' => 65535], // VARCHAR max size
+            'clients' => ['type' => 'number', 'size' => 2147483647] // INT max size
+        ];
+
         $limit = $request->limit ?? 20;
-        $channels = AcquisitionChannel::orderBy('name','desc')->paginate($limit);
-        return response()->json($channels, 200);
+
+        $data = [
+            'columns' => $columns,
+            'columns_properties' => $customColumnsProperties,
+            'channels' => AcquisitionChannel::orderBy('name','desc')->paginate($limit)
+        ];
+
+        return response()->json($data, 200);
     }
 
     public function create(Request $request)
