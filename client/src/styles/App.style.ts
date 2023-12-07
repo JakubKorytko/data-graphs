@@ -15,7 +15,7 @@ const style = {
 
     div: {
         ...center, 
-        marginBottom: "15px" 
+        margin: "30px 0" 
     },
 
     row: {
