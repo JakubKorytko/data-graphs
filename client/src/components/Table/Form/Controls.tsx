@@ -15,7 +15,7 @@ function TableControls(props: TableControlsProps) {
   const { data } = useContext(DataContext);
 
   const length = data ? data.channels.data.length : 0
-  const lastId = data ? data.channels.data[length - 1].id : 0;
+  const lastId = (data && data.channels.data.length>0) ? data.channels.data[length - 1].id : 0;
 
   const enabled = data !== false;
   const columns_properties = data ? data.columns_properties : {};
