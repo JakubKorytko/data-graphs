@@ -34,7 +34,7 @@ const NotficationsWrapper = (props: NotificationWrapperProps) => {
         dispatch({ type: "add", object: object });
 
         removeTimeouts[object.code] && clearTimeout(removeTimeouts[object.code]);
-        removeTimeouts[object.code] = setTimeout(() => { dispatch({ type: "remove", object: object }) }, seconds * 1000);
+        removeTimeouts[object.code] = window.setTimeout(() => { dispatch({ type: "remove", object: object }) }, seconds * 1000);
     }
 
     const [notifications, dispatch] = useReducer(reducer, []);

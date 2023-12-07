@@ -44,7 +44,7 @@ const DataWrapper = (props: DataWrapperProps) => {
         notify(error, 10);
 
         delayedTimeouts[error.code] && clearTimeout(delayedTimeouts[error.code]);
-        delayedTimeouts[error.code] = setTimeout(() => {
+        delayedTimeouts[error.code] = window.setTimeout(() => {
 
             notify({ code: 2, message: "Can't fetch the data" }, 5);
             isFetching = false;
