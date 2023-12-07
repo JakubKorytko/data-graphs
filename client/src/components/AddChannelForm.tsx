@@ -44,20 +44,26 @@ function AddChannelForm(props: { columns_properties: ColumnsProperties | false }
     },
   });
 
-  const limit = (column: string) => {
+  const limit = (column: string): number => {
     if (props.columns_properties) {
       return props.columns_properties[column].size;
+    } else {
+      return 0;
     }
   }
 
   const nameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length == limit('name')) return;
-    setName(e.target.value)
+    const value = e.target.value;
+    if (value.length >= limit('name')) return;
+    setName(value)
   };
 
   const clientsHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length == limit('clients')) return;
     const clientsNumber = Number(e.target.value);
+    if (clientsNumber >= limit('clients')) {
+      setClients(limit('clients'));
+      return;
+    }
     setClients(clientsNumber);
   };
 
