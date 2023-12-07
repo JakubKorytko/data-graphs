@@ -32,6 +32,17 @@ function AddChannelForm(props: { columns_properties: ColumnsProperties | false }
 
   const [name, setName] = useState('');
   const [clients, setClients] = useState(0);
+  const [validation, setValidation] = useState<Validation>({
+    checked: false,
+    name: {
+      message: '',
+      isValid: false
+    },
+    clients: {
+      message: '',
+      isValid: false
+    },
+  });
 
   const limit = (column: string) => {
     if (props.columns_properties) {
