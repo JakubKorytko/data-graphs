@@ -24,9 +24,9 @@ Route::get("/status", function () {
     ], 200);
 });
 
-Route::get('/channels', [AcquisitionChannelController::class, 'read']);
+Route::get('/channels/read', [AcquisitionChannelController::class, 'read']);
 
-Route::post('/channels/add', [AcquisitionChannelController::class, 'create']);
+Route::post('/channels/create', [AcquisitionChannelController::class, 'create']);
 
 Route::put('/channels/update/{id}', [AcquisitionChannelController::class, 'update']);
 
