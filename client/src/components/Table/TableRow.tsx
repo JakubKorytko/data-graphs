@@ -1,6 +1,6 @@
 import { Button } from 'react-bootstrap';
 import style from '../../styles/Table.style';
-import { ApiData, CustomResponse, CustomMessage } from '../../types/api.d';
+import { ApiData, CustomResponse, CustomMessage, Channel } from '../../types/api.d';
 import { update, remove } from '../../utils/api.util';
 import DeleteConfirm from '../Modals/DeleteConfirm';
 import { useState, Fragment, useContext } from "react";
@@ -15,7 +15,6 @@ const TableRow = (props: { data: ApiData | false, row_index: number }) => {
     const [editMode, setEditMode] = useState(false);
 
     const { fetchData, reconnect } = useContext(DataContext);
-    const { notify } = useContext(NotificationsContext);
 
     const { data, row_index } = props;
     if (!data) return null;
@@ -25,6 +24,7 @@ const TableRow = (props: { data: ApiData | false, row_index: number }) => {
     const deleteCallback = (del: boolean) => {
         setShowModal(false);
         if (!del) return;
+
         return new Promise((resolve, reject) => {
             remove(id).then((res) => {
                 if (res.type === "success") {
@@ -51,7 +51,6 @@ const TableRow = (props: { data: ApiData | false, row_index: number }) => {
     const editModeCallback = (name: string, clients: number) => {
         return new Promise((resolve, reject) => {
             update(id, { name, clients }).then((res) => {
-                console.log(res);
                 if (res.type === "success") {
                     fetchData().then(() => {
                         setEditMode(false);
@@ -74,17 +73,19 @@ const TableRow = (props: { data: ApiData | false, row_index: number }) => {
         });
     }
 
-    const row = data.channels.data[row_index];
-    const sum = data.channels.data.reduce((acc: number, row: any) => acc + row[data.columns[data.columns.length - 1]], 0);
+    const index = data.columns[data.columns.length - 1] as keyof Channel;
 
-    const items = Object.values(row).map((item: any, item_index: number) => <td style={style.center} key={item_index}>{item}</td>)
+    const row = data.channels.data[row_index];
+    const sum = data.channels.data.reduce((acc: number, row: Channel) => acc + Number(row[index]), 0);
+
+    const items = Object.values(row).map((item: string, item_index: number) => <td style={style.center} key={item_index}>{item}</td>)
 
     const buttons = [
         { variant: "light", text: "Usuń", colspan: 1, onClick: () => { setShowModal(true) } },
         { variant: "light", text: "Edytuj", colspan: 1, onClick: () => { setEditMode(true); } }
     ]
 
-    const percent = (row[data.columns[data.columns.length - 1]] / sum * 100).toFixed(2);
+    const percent = (Number(row[index]) / (sum != 0 ? sum : 1) * 100).toFixed(2);
 
     const color = data.chartColors[row_index];
 
