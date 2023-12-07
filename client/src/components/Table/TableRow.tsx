@@ -1,15 +1,21 @@
 import { Button } from 'react-bootstrap';
 import style from '../../styles/Table.style';
-import { ApiData } from '../../types/api';
+import { ApiData, CustomResponse, CustomMessage } from '../../types/api.d';
+import { update, remove } from '../../utils/api.util';
 import DeleteConfirm from '../Modals/DeleteConfirm';
-import { useState, Fragment } from "react";
+import { useState, Fragment, useContext } from "react";
 import EditRow from './EditRow';
+
+import { DataContext, NotificationsContext } from '../Wrappers/Context';
 
 
 const TableRow = (props: { data: ApiData | false, row_index: number }) => {
 
     const [showModal, setShowModal] = useState(false);
     const [editMode, setEditMode] = useState(false);
+
+    const { fetchData, reconnect } = useContext(DataContext);
+    const { notify } = useContext(NotificationsContext);
 
     const { data, row_index } = props;
     if (!data) return null;
@@ -18,12 +24,54 @@ const TableRow = (props: { data: ApiData | false, row_index: number }) => {
 
     const deleteCallback = (del: boolean) => {
         setShowModal(false);
-        console.log(del, id);
+        if (!del) return;
+        return new Promise((resolve, reject) => {
+            remove(id).then((res) => {
+                if (res.type === "success") {
+                    fetchData().then(() => {
+                        resolve("success");
+                    });
+                } else if (res.type === "failure") {
+
+                    const status = (res as CustomResponse).response.status;
+
+                    const response = (res as CustomResponse).response;
+                    const info = { code: status, message: response.statusText };
+                    if (status === 500) reconnect(info);
+                    resolve("failure");
+                } else {
+                    const err = (res as CustomMessage);
+                    reconnect({ code: err.code, message: err.message});
+                    resolve("error");
+                }
+            });
+        })
     }
 
-    const editModeCallback = () => {
-        setEditMode(false);
-        console.log(id)
+    const editModeCallback = (name: string, clients: number) => {
+        return new Promise((resolve, reject) => {
+            update(id, { name, clients }).then((res) => {
+                console.log(res);
+                if (res.type === "success") {
+                    fetchData().then(() => {
+                        setEditMode(false);
+                        resolve("success");
+                    });
+                } else if (res.type === "failure") {
+
+                    const status = (res as CustomResponse).response.status;
+
+                    const response = (res as CustomResponse).response;
+                    const info = { code: status, message: response.statusText };
+                    if (status === 500) reconnect(info);
+                    resolve("failure");
+                } else {
+                    const err = (res as CustomMessage);
+                    reconnect({ code: err.code, message: err.message});
+                    resolve("error");
+                }
+            });
+        });
     }
 
     const row = data.channels.data[row_index];
