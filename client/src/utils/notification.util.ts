@@ -36,7 +36,7 @@ export const generate = (code: number, message: string) => {
     else if (code==1000 || code===1001) {
         notification.body = message;
         if (code===1000) notification.title = "Wrong name";
-        notification.title = "Wrong number of clients";
+        else notification.title = "Wrong number of clients";
     }
 
     else if (code >= 400 && code < 500) {
