@@ -9,14 +9,24 @@ const TableContainer = () => {
     const { data } = useContext(DataContext);
 
     const isFetched = data !== false;
-    
+
+    const defaultProps = { 
+        clients: {
+            value: 0,
+            set: () => { return true }
+        }, name: {
+            value: '',
+            set: () => { return true }
+        }
+    };
+
     if (!isFetched) return null;
 
     return (
         <Row>
             <Col>
                 <TableForm>
-                    <Table />
+                    <Table {...defaultProps} />
                 </TableForm>
             </Col>
         </Row>
