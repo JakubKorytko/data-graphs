@@ -1,11 +1,6 @@
-export interface ChartProps {
-    data: any[] | false,
-    colors: string[] | false
-}
+import { ApiData, ColumnsProperties } from "../utils/api.util"
 
 export interface NotificationsProps {
-    list: any[],
-    remove: Function
 }
 
 export interface AddChannelFormProps {
@@ -13,5 +8,37 @@ export interface AddChannelFormProps {
     notify: Function,
     fetchData: Function,
     enabled: boolean,
-    columns_properties: ColumnsProperties | false
+    columns_properties: ColumnsProperties | false,
+    clients: {value: number, set: Function},
+    name: {value: string, set: Function}
+}
+
+export interface NotificationTitleProps {
+    children: React.ReactNode
+}
+
+export interface NotificationBodyProps {
+    children: React.ReactNode
+}
+
+export interface NotificationProps {
+    children: React.ReactNode,
+    remove: Function
+}
+
+export interface TableContainerProps {
+}
+
+export type TableProps = any
+
+export interface DataWrapperProps {
+    children: React.ReactNode
+}
+
+export interface NotificationWrapperProps {
+    children: React.ReactNode
+}
+
+export interface DataContextProps {
+    data: ApiData | false
 }
