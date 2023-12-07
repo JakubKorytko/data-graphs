@@ -2,9 +2,9 @@ import { useEffect, useReducer, useState } from "react";
 import { NotificationWrapperProps } from "../../types/props";
 import Notifications from "../Notifications/Container";
 import { NotificationsContext } from "./Context";
-type State = { code: number, message: string }
+import { State } from "../../types/api";
 
-const reducer = (notifications: State[], action: any): State[] => {
+const reducer = (notifications: State[], action: {type: string, object: State}): State[] => {
     switch (action.type) {
         case "add":
             const exists = notifications.some((notification: State) => notification.code === action.object.code);
