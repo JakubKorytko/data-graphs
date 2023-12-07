@@ -5,12 +5,31 @@ namespace App\Http\Controllers;
 use App\Models\AcquisitionChannel;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Http\Request;
-use App\Http\Requests\CreateRequest;
 use Illuminate\Support\Facades\Validator;
 
 
 class AcquisitionChannelController extends Controller
 {
+
+    public static function action(Request $request, $action, $data = null)
+    {
+        error_log(isset($request->test));
+
+        if (isset($request->test)) return true;
+
+        switch ($action) {
+            case 'create':
+                return AcquisitionChannel::create($request->post());
+            case 'update':
+                if (!isset($data["name"]) || !isset($data["clients"]) || !isset($data['id'])) return false;
+                return AcquisitionChannel::where('id', '=', $data["id"])->update($data);
+            case 'delete':
+                if (!isset($data["id"])) return false;
+                return AcquisitionChannel::where('id', '=', $data["id"])->delete();
+            default:
+                return false;
+        }
+    }
 
     public static $messages_name = [
         'required' => 'Nazwa kanału jest wymagana.',
@@ -34,6 +53,8 @@ class AcquisitionChannelController extends Controller
     {
         $columns = Schema::getColumnListing('acquisition_channels');
         $columns = array_diff($columns, ['created_at', 'updated_at']);
+
+        AcquisitionChannelController::action($request, 'read');
 
         $clients_size = AcquisitionChannelController::$clients_size;
         $name_size = AcquisitionChannelController::$name_size;
@@ -105,7 +126,8 @@ class AcquisitionChannelController extends Controller
                 'message' => $val
             ], 400);
         } else {
-            AcquisitionChannel::create($request->post());
+
+            AcquisitionChannelController::action($request, 'create');
 
             return response()->json([
                 'message' => 'Kanał został dodany pomyślnie.'
@@ -116,12 +138,10 @@ class AcquisitionChannelController extends Controller
     public function update(Request $request, $key)
     {
 
-        error_log($key);
-
         $clients_size = AcquisitionChannelController::$clients_size;
         $name_size = AcquisitionChannelController::$name_size;
 
-        
+
         $name = [
             'value' => $request->name,
             'pattern' => 'required|max:' . $name_size . '|min:1|regex:/^[a-zA-Z0-9 ]*$/'
@@ -145,25 +165,36 @@ class AcquisitionChannelController extends Controller
                 ], 404);
             } else {
 
-                AcquisitionChannel::where('id','=',$key)->update(["name" => $name["value"], "clients" => $clients["value"]]);
+                AcquisitionChannelController::action($request, 'update', [
+                    "name" => $name['value'],
+                    "clients" => $clients['value'],
+                    "id" => $key
+                ]);
 
                 return response()->json([
                     'message' => 'Kanał został zaktualizowany pomyślnie.'
                 ], 200);
             }
-
         }
     }
 
     public function delete(Request $request, $key)
     {
+        if (!$key) {
+            return response()->json([
+                'message' => 'Nie podano klucza kanału.'
+            ], 400);
+        }
 
         if (!$this->find('id', $key)) {
             return response()->json([
                 'message' => 'Kanał, który próbujesz usunąć nie istnieje.'
             ], 404);
         } else {
-            AcquisitionChannel::where('id', $key)->delete();
+            AcquisitionChannelController::action($request, 'delete', [
+                "id" => $key
+            ]);
+
             return response()->noContent();
         }
     }
