@@ -2,7 +2,7 @@ import { ColumnsProperties } from '../types/api';
 import * as Types from '../types/table';
 
 export const limit = (columns_properties: ColumnsProperties , column: string): number => {
-    if (columns_properties) {
+    if (columns_properties && columns_properties[column]) {
         return columns_properties[column].size;
     } else {
         return 0;
