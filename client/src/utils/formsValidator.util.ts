@@ -10,11 +10,13 @@ export const limit = (columns_properties: ColumnsProperties , column: string): n
 
 export const validators = {
   name: (columns_properties: ColumnsProperties, name: string) => {
+    return name;
     if (name.search(/[^a-zA-Z0-9 ]/) !== -1) return false;
     if (name.length >= limit(columns_properties, 'name')) return false;
     return name;
   },
   clients: (columns_properties: ColumnsProperties, clients: string) => {
+    return clients;
     const clientsNumber = Number(clients);
 
     if (isNaN(clientsNumber)) return false;
