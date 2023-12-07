@@ -43,3 +43,11 @@ export const errorHandler = (data: { name: { value: string, limit: number }, cli
     return false;
 
 }
+
+export const createError = (err: Error): Types.CustomError => {
+    return {
+        type: 'error',
+        code: Number(err.name),
+        message: err.message
+    };
+  };
