@@ -24,13 +24,13 @@ const EditRow = (props: {name: string, clients: number, id: number, setEditMode:
         </td>
     })
 
-    const nameHandler = (e: any) => {
+    const nameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         const val = validators.name(data.columns_properties, e.target.value);
         if (val === false) return;
         setName(val);
     };
 
-    const clientsHandler = (e: any) => {
+    const clientsHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         const val = validators.clients(data.columns_properties, e.target.value);
         if (val === false) return;
         setClients(val);
