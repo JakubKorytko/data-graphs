@@ -1,8 +1,10 @@
+import { ApiData, CustomMessage, CustomResponse } from "../../../types/api.d";
 import Form from 'react-bootstrap/Form';
 import { DataContext, NotificationsContext } from '../../Wrappers/Context';
 import React, { useContext, useState } from 'react';
 import { errorHandler, createError } from '../../../utils/table.util';
 import { limit } from '../../../utils/formsValidator.util';
+import { create } from '../../../utils/api.util';
 
 const TableForm = (props: any) => {
 
@@ -34,20 +36,7 @@ const TableForm = (props: any) => {
 
     const data = {name, clients};
 
-    new Promise((resolve) => {
-      fetch('http://127.0.0.1:8000/channels/create', {
-        method: 'POST',
-        headers: {
-          "Content-type": "application/json"
-        },
-        body: JSON.stringify(data)
-      }).then(res => resolve(res)).catch((error) => {
-        const err = createError(error);
-        resolve(err);
-      });
-    }).then(
-      (response) => submitFeedback(response)
-    )
+    create(data).then(response => submitFeedback(response))
   }
 
   const submitFeedback = async (response: any) => {
