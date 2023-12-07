@@ -2,7 +2,7 @@ import { ApiData, CustomMessage, CustomResponse } from "../../../types/api.d";
 import Form from 'react-bootstrap/Form';
 import { DataContext, NotificationsContext } from '../../Wrappers/Context';
 import React, { useContext, useState } from 'react';
-import { errorHandler, createError } from '../../../utils/table.util';
+import { errorHandler } from '../../../utils/table.util';
 import { limit } from '../../../utils/formsValidator.util';
 import { create } from '../../../utils/api.util';
 
@@ -39,11 +39,16 @@ const TableForm = (props: any) => {
     create(data).then(response => submitFeedback(response))
   }
 
-  const submitFeedback = async (response: any) => {
-    const status = response.status;
-    const json = await response.text();
-    console.log(json);
-    const info = { code: status, message: response.statusText };
+  const submitFeedback = async (res: CustomResponse | CustomMessage) => {
+    const err = (res as CustomMessage);
+    if (res.type == 'error') reconnect({ code: err.code, message: err.message});
+
+
+    const status = (res as CustomResponse).response.status;
+
+    const json = await (res as CustomResponse).response.json();
+    const info = { code: status, message: json.message };
+
     switch (status) {
       case 201:
         setName('');
