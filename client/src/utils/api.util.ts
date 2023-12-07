@@ -49,14 +49,14 @@ export const read = (limit: Number = 20, page: Number = 1): Promise<ApiData | Cu
                 throw error;
             }
         )
-        .then((response) => response.json())
-        .then((json) => {
-            const data: ApiData = {...json, type: 'success'};
-            resolve(data);
-        })
-        .catch((error) => {
-            const err = handleError(error);
-            resolve(err);
-        });
+            .then((response) => response.json())
+            .then((json) => {
+                const data: ApiData = { ...json, type: 'success' };
+                resolve(data);
+            })
+            .catch((error) => {
+                const err = handleError(error);
+                resolve(err);
+            });
     });
 }
