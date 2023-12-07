@@ -5,7 +5,7 @@
 import Button from 'react-bootstrap/Button';
 import { useContext } from 'react';
 import { TableControlsProps } from '../../../types/props';
-import { limit } from '../../../utils/table.util';
+import { limit, validators } from '../../../utils/formsValidator.util';
 import { DataContext } from '../../Wrappers/Context';
 import style from '../../../styles/Table.style';
 import FormGroup from './Group';
@@ -21,20 +21,15 @@ function TableControls(props: TableControlsProps) {
   const columns_properties = data ? data.columns_properties : {};
 
   const nameHandler = (e: React.ChangeEvent<HTMLInputElement>,) => {
-    const value = e.target.value;
-    if (value.search(/[^a-zA-Z0-9 ]/) !== -1) return;
-    if (value.length >= limit(columns_properties, 'name')) return;
-    props.name.set(value)
+    const val = validators.name(columns_properties, e.target.value);
+    if (val === false) return;
+    props.name.set(val);
   };
 
   const clientsHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const clientsNumber = Number(e.target.value);
-    console.log(clientsNumber)
-    if (clientsNumber >= limit(columns_properties, 'clients')) {
-      props.clients.set(limit(columns_properties, 'clients') - 1);
-      return;
-    }
-    props.clients.set(clientsNumber);
+    const val = validators.clients(columns_properties, e.target.value);
+    if (val === false) return;
+    props.clients.set(val);
   };
 
   const groups = [

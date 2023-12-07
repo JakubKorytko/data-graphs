@@ -1,7 +1,8 @@
 import Form from 'react-bootstrap/Form';
 import { DataContext, NotificationsContext } from '../../Wrappers/Context';
 import React, { useContext, useState } from 'react';
-import { limit, errorHandler, createError } from '../../../utils/table.util';
+import { errorHandler, createError } from '../../../utils/table.util';
+import { limit } from '../../../utils/formsValidator.util';
 
 const TableForm = (props: any) => {
 
