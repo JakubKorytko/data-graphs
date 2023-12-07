@@ -15,7 +15,7 @@ const EditRow = (props: {name: string, clients: number, id: number, setEditMode:
 
     const buttons = [
         { variant: "light", text: "Anuluj", colspan: 1, onClick: () => { props.setEditMode(false); } },
-        { variant: "light", text: "Zapisz", colspan: 1, onClick: () => { props.editModeCallback();  } }
+        { variant: "light", text: "Zapisz", colspan: 1, onClick: () => { props.editModeCallback(name, clients);  } }
     ]
 
     const buttonsList = buttons.map((button, index) => {
