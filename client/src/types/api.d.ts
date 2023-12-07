@@ -37,8 +37,13 @@ export interface Property {
     size: number;
 }
 
-export interface CustomError {
+export interface CustomMessage {
     type: string,
     code: number,
     message: string
+}
+
+export interface CustomResponse {
+    type: string,
+    response: Response
 }
