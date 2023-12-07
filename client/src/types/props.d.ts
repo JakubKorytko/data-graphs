@@ -1,5 +1,9 @@
 import { ApiData, ColumnsProperties } from "../utils/api.util"
 
+export interface TableFormProps {
+    children: React.ReactNode
+}
+
 export interface NotificationsProps {
 }
 
@@ -30,7 +34,21 @@ export interface NotificationProps {
 export interface TableContainerProps {
 }
 
-export type TableProps = any
+export type TableProp = { 
+    value: number; 
+    set: Function; 
+}
+
+export interface TableProps {
+    clients: { 
+        value: number; 
+        set: Function; 
+    }
+    name: { 
+        value: string; 
+        set: Function; 
+    }
+}
 
 export interface DataWrapperProps {
     children: React.ReactNode,
