@@ -67,6 +67,86 @@ function AddChannelForm(props: { columns_properties: ColumnsProperties | false }
     setClients(clientsNumber);
   };
 
+  const errorHandler = () => {
+    
+    const valid: Validator = {message: '', isValid: true};
+
+    const validationObject: Validation = {checked: true, name: valid, clients: valid};
+
+    const errors: Errors = {
+      name: {
+        condition: name.length !== 0 && name.length < limit('name'),
+        message: 'Nazwa musi zawierać od 1 do ' + limit('name') + ' znaków'
+      },
+      clients: {
+        condition: clients < limit('clients') && clients >= 0,
+        message: 'Liczba klientów musi zawierać od 0 do ' + limit('clients') + ' znaków'
+      } 
+    }
+
+    const conditions = Object.values(errors).map((error) => error.condition);
+
+    for (const key in errors) {
+      const error = errors[key as keyof Errors];
+
+      if (error.condition) {
+        validationObject[key as keyof Errors] = {message: error.message, isValid: false};
+      }
+    }
+
+    setValidation(validationObject);
+    
+    if (conditions.includes(false)) return true;
+    return false;
+    
+  }
+
+  const submitHandler = (e: React.SyntheticEvent<HTMLFormElement>) => {
+    // const form = e.currentTarget;
+    // if (form.checkValidity() === false) {
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    const errors = errorHandler();
+
+    if (errors) return;
+    // }
+    
+    const data = {
+      name: name,
+      clients: clients
+    };
+
+    fetch('http://127.0.0.1:8000/channels/create', {
+      method: 'POST',
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(data)
+    }).then(res => submitFeedback(res));
+
+    setName('');
+    setClients(0);
+
+  }
+
+  const feedbackElement = (message: string, isValid: boolean) => {
+    console.log(message, isValid);
+      return <Form.Control.Feedback type={isValid ? "valid" : "invalid"}>{message}</Form.Control.Feedback>
+  }
+
+  const submitFeedback = async (response: any) => {
+    const status = response.status;
+    const json = await response.json();
+    const message = json.message;
+
+    if (status === 209) {
+      
+    }
+
+  }
+
   return (
     <Form>
       <Form.Group className="mb-3">
