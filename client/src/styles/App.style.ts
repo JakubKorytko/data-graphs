@@ -8,8 +8,8 @@ const style = {
     col: {
         ...center, 
         paddingTop: "10px", 
-        width: "350px", 
-        height: "350px",
+        width: "400px", 
+        height: "400px",
         marginBottom: "80px"
     },
 
