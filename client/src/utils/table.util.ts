@@ -2,6 +2,8 @@ import * as Types from '../types/table';
 
 export const errorHandler = (data: { name: { value: string, limit: number }, clients: { value: number, limit: number } }) => {
 
+    return false;
+
     const { name, clients } = data;
 
     const valid: Types.Validator = { message: '', isValid: true };
@@ -34,11 +36,3 @@ export const errorHandler = (data: { name: { value: string, limit: number }, cli
     return false;
 
 }
-
-export const createError = (err: Error): Types.CustomError => {
-    return {
-        type: 'error',
-        code: Number(err.name),
-        message: err.message
-    };
-  };
