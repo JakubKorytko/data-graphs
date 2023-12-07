@@ -5,7 +5,7 @@ const channels_url = `${url}/channels`
 const health_url = `${url}/status`
 
 
-const handleError = (err: Error): CustomMessage => {
+export const handleError = (err: Error): CustomMessage => {
     return {
         type: 'error',
         code: Number(err.name),
@@ -13,7 +13,7 @@ const handleError = (err: Error): CustomMessage => {
     };
 };
 
-const handleResponse = (response: Response, type: string = "success"): {type: string, response: Response} => {
+export const handleResponse = (response: Response, type: string = "success"): {type: string, response: Response} => {
     return {
         type: type,
         response: response
