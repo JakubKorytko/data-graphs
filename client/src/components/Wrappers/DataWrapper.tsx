@@ -16,6 +16,7 @@ const DataWrapper = (props: DataWrapperProps) => {
 
     const fetchData = () => {
         if (isFetching) return;
+        if (!props.connection) return; 
 
         isFetching = true;
         read().then((res) => {
