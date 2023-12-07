@@ -12,9 +12,25 @@ const handleError = (err: Error): CustomError => {
     };
 };
 
-export const read = (limit: Number = 20, page: Number = 1): Promise<ApiData|CustomError> => {
+export const test = () => {
     return new Promise((resolve) => {
-        const urlObj = new URL(`${url}/read`);
+        fetch(health_url)
+            .then(response => {
+                if (response.ok) {
+                    resolve(true);
+                    return response
+                };
+                resolve(false);
+            })
+            .catch((error) => {
+                resolve(false);
+            });
+    })
+}
+
+export const read = (limit: Number = 20, page: Number = 1): Promise<ApiData | CustomError> => {
+    return new Promise((resolve) => {
+        const urlObj = new URL(`${channels_url}/read`);
 
         const params = new URLSearchParams({
             limit: limit.toString(),
