@@ -1,4 +1,4 @@
-import { NotificationInterface } from '../types/notifications.d';
+import { NotificationInterface } from './notification.util.type';
 
 // ważne: nie są to kody odpowiedzi http, tylko niestandardowe kody błędów powiadomień
 
@@ -30,7 +30,7 @@ export const generate = (code: number, message: string) => {
         title: `${message}`,
         body: 'Nieoczekiwany błąd. Skontaktuj się z administratorem.'
     }
-    
+
     if (codes[code]) notification.body = codes[code]
 
     else if (code==1000 || code===1001) {
@@ -43,6 +43,6 @@ export const generate = (code: number, message: string) => {
         notification.body = message;
         notification.title = 'Błąd w żądaniu';
     };
-    
+
     return notification;
 }

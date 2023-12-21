@@ -1,4 +1,4 @@
-import { NotificationBodyProps } from "../../../types/props";
+import { NotificationBodyProps } from "./Body.type";
 import { Toast } from "react-bootstrap";
 
 const Body = (props: NotificationBodyProps) => {

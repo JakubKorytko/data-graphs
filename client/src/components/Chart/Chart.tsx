@@ -15,9 +15,6 @@ const Chart = () => {
   const channels = context ? context.channels.data: false;
   const colors = context ? context.chartColors: [];
 
-  console.log(channels);
-  console.log(colors);
-
   return <Pie data={data(channels, colors)} options={options} />;
 }
 

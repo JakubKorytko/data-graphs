@@ -1,5 +1,5 @@
-import { DataWrapperProps } from "../../types/props";
-import { ApiData, CustomMessage } from "../../types/api";
+import { DataWrapperProps } from "./DataWrapper.type";
+import { ApiData, CustomMessage } from "../../utils/api.util.type";
 import { useState, useEffect, useContext } from "react";
 import { read, } from "../../utils/api.util";
 import chartColors from "../../utils/chartColors.util";
@@ -28,7 +28,7 @@ const DataWrapper = (props: DataWrapperProps) => {
                 else {
                     const data = res as ApiData;
                     setData({ ...data, chartColors: chartColors(data.channels.data.length) });
-                    
+
                     notify({ code: 200, message: "Data fetched from the server" }, 5);
 
                     isFetching = false;

@@ -1,18 +1,17 @@
 import { useContext } from 'react';
 import Notification from './Component/Notification';
 import { Row, Col, ToastContainer } from 'react-bootstrap';
-import { NotificationsProps } from '../../types/props';
 import { NotificationsContext } from '../Wrappers/Context';
 import { generate } from '../../utils/notification.util';
 
-const Notifications = (props: NotificationsProps) => {
+const Notifications = () => {
 
     const { list, remove } = useContext(NotificationsContext);
 
     return (
         <ToastContainer position="top-end" id="toaster">
             {list.map((notification) => {
-                
+
                 const notificationObject = generate(notification.code, notification.message);
 
                 return (<Notification remove={remove.bind(null, notification.code)} key={notificationObject.code}>

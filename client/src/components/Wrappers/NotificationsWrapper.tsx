@@ -1,8 +1,8 @@
 import { useEffect, useReducer, useState } from "react";
-import { NotificationWrapperProps } from "../../types/props";
+import { NotificationWrapperProps } from "./NotificationsWrapper.type";
 import Notifications from "../Notifications/Container";
 import { NotificationsContext } from "./Context";
-import { State } from "../../types/api";
+import { State } from "../../utils/api.util.type";
 
 const reducer = (notifications: State[], action: {type: string, object: State}): State[] => {
     switch (action.type) {

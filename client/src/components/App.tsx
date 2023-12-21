@@ -1,10 +1,10 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Chart from './components/Chart/Chart';
-import TableContainer from './components/Table/TableContainer';
-import NotificationsWrapper from './components/Wrappers/NotificationsWrapper';
-import style from './styles/App.style';
-import Loader from './components/Wrappers/Loader';
+import Chart from './Chart/Chart';
+import TableContainer from './Table/TableContainer';
+import NotificationsWrapper from './Wrappers/NotificationsWrapper';
+import style from './App.style';
+import Loader from './Wrappers/Loader';
 
 export default function App() {
 

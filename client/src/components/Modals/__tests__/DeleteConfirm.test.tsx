@@ -1,4 +1,4 @@
-import { DeleteConfirmProps } from "../../../types/props";
+import { DeleteConfirmProps } from "../DeleteConfirm.type";
 import { unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 

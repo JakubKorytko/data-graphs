@@ -1,5 +1,5 @@
 import { unmountComponentAtNode } from "react-dom";
-import { TableProps } from "../../../types/props";
+import { TableProps } from "../Table.type";
 import { act } from "react-dom/test-utils";
 
 const fakeProps: TableProps = {

@@ -1,4 +1,4 @@
-import { ApiData, CustomMessage, CustomResponse } from "../types/api.d";
+import { ApiData, CustomMessage, CustomResponse } from "./api.util.type";
 
 const url = `http://127.0.0.1:8000`;
 const channels_url = `${url}/channels`
@@ -51,7 +51,6 @@ export const remove = (id: number ): Promise<CustomMessage | CustomResponse> => 
                 "Content-type": "application/json"
             }
         }).then(res => {
-            console.log(res);
             if (res.ok) {
                 resolve(handleResponse(res))
                 return res

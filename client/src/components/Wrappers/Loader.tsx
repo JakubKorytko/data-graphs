@@ -1,4 +1,4 @@
-import style from '../../styles/Loader.style';
+import style from './Loader.style';
 import { test } from "../../utils/api.util";
 import { useState, useEffect, useContext } from "react";
 import { NotificationsContext } from "./Context";

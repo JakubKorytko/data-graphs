@@ -1,4 +1,4 @@
-import * as Types from '../types/table';
+import * as Types from './table.util.type';
 
 export const errorHandler = (data: { name: { value: string, limit: number }, clients: { value: number, limit: number } }) => {
 

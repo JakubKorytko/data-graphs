@@ -1,4 +1,4 @@
-import { ColumnsProperties } from '../types/api';
+import { ColumnsProperties } from './api.util.type';
 
 export const limit = (columns_properties: ColumnsProperties , column: string): number => {
   if (columns_properties && columns_properties[column]) {

@@ -1,4 +1,4 @@
-import { TableFormProps } from "../../../../types/props";
+import { TableFormProps } from "../Container.type";
 
 const fakeProps: TableFormProps = {
     children: <span>Test</span>,

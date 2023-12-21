@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import style from '../../styles/Table.style';
+import style from './Table.style';
 import { DataContext } from '../Wrappers/Context';
 import { validators } from '../../utils/formsValidator.util';
 

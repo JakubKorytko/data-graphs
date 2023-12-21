@@ -4,10 +4,10 @@
 
 import Button from 'react-bootstrap/Button';
 import { useContext } from 'react';
-import { TableControlsProps } from '../../../types/props';
+import { TableControlsProps } from './Controls.type';
 import { limit, validators } from '../../../utils/formsValidator.util';
 import { DataContext } from '../../Wrappers/Context';
-import style from '../../../styles/Table.style';
+import style from '../Table.style';
 import FormGroup from './Group';
 
 function TableControls(props: TableControlsProps) {

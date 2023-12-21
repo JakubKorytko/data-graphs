@@ -1,4 +1,4 @@
-import { NotificationProps } from "../../../../types/props";
+import { NotificationProps } from "../Notification.type"
 import { unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 

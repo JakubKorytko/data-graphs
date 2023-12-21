@@ -1,6 +1,6 @@
 import { Button } from 'react-bootstrap';
-import style from '../../styles/Table.style';
-import { ApiData, CustomResponse, CustomMessage, Channel } from '../../types/api.d';
+import style from './Table.style';
+import { ApiData, CustomResponse, CustomMessage, Channel } from '../../utils/api.util.type';
 import { update, remove } from '../../utils/api.util';
 import DeleteConfirm from '../Modals/DeleteConfirm';
 import { useState, Fragment, useContext } from "react";

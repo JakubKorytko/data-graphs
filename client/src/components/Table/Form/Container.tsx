@@ -1,6 +1,6 @@
-import { ApiData, CustomMessage, CustomResponse } from "../../../types/api.d";
+import { ApiData, CustomMessage, CustomResponse } from "../../../utils/api.util.type";
 import Form from 'react-bootstrap/Form';
-import { TableFormProps } from "../../../types/props";
+import { TableFormProps } from "./Container.type";
 import { DataContext, NotificationsContext } from '../../Wrappers/Context';
 import React, { useContext, useState } from 'react';
 import { errorHandler } from '../../../utils/table.util';

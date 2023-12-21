@@ -1,4 +1,4 @@
-import { Channel } from "../../types/api";
+import { Channel } from "../../utils/api.util.type";
 
 export const options = {
   plugins: {
