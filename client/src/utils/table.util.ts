@@ -11,11 +11,11 @@ export const errorHandler = (data: { name: { value: string, limit: number }, cli
     const errors: Types.Errors = {
         name: {
             condition: name.value.length !== 0 && name.value.length < name.limit,
-            message: 'Nazwa musi zawierać od 1 do ' + name.limit + ' znaków'
+            message: 'The name must contain 1 to ' + name.limit + ' characters'
         },
         clients: {
             condition: clients.value < clients.limit && clients.value >= 0,
-            message: 'Liczba klientów musi być liczbą między 0 a ' + clients.limit
+            message: 'The number of clients must be a number between 0 and ' + clients.limit
         }
     }
 

@@ -1,6 +1,6 @@
-//[1]: pusty łańcuch tekstowy dodany aby naprawić liczby zaczynające się na 0 (np. 01, 02, 03)
-//powiązane z: https://github.com/facebook/react/issues/9402
-//usunąć łańcuch po naprawie błędu
+//[1]: empty string added to fix numbers starting with 0 (eg. 01, 02, 03)
+//related to: https://github.com/facebook/react/issues/9402
+//remove string after bug fix
 
 import Button from 'react-bootstrap/Button';
 import { useContext } from 'react';
@@ -38,14 +38,14 @@ function TableControls(props: TableControlsProps) {
       name: 'name',
       value: props.name.value,
       handler: nameHandler,
-      placeholder: `Nazwa kanału (maks. długość: ${limit(columns_properties, 'name')})`
+      placeholder: `Channel name (max length: ${limit(columns_properties, 'name')})`
     },
     {
       id: 1,
       name: 'clients',
       value: props.clients.value + '' /* [1] */,
       handler: clientsHandler,
-      placeholder: `Ilość klientów (maks. liczba: ${limit(columns_properties, 'clients')})`
+      placeholder: `Clients number (max value: ${limit(columns_properties, 'clients')})`
     }
   ]
 
@@ -56,7 +56,7 @@ function TableControls(props: TableControlsProps) {
       <td style={style.center}>{lastId+1}</td>
       {FormGroups}
       <td style={style.center}>
-        <Button variant="light" disabled={!enabled} type="submit">Dodaj</Button>
+        <Button variant="light" disabled={!enabled} type="submit">Add</Button>
       </td>
     </tr>
   );

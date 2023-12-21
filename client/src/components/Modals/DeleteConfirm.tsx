@@ -7,11 +7,11 @@ const DeleteConfirm = (props: DeleteConfirmProps) => {
     return (
         createPortal(
             <Modal show={props.show}>
-                <Modal.Header>Usuń kanał</Modal.Header>
-                <Modal.Body>Czy na pewno chcesz usunąć ten kanał? Tej operacji nie można cofnąć.</Modal.Body>
+                <Modal.Header>Delete the channel</Modal.Header>
+                <Modal.Body>Are you sure you want to delete this channel? This operation cannot be undone.</Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => { props.callback(false) }}>Anuluj</Button>
-                    <Button variant="danger" onClick={() => { props.callback(true) }}>Usuń</Button>
+                    <Button variant="secondary" onClick={() => { props.callback(false) }}>Cancel</Button>
+                    <Button variant="danger" onClick={() => { props.callback(true) }}>Delete</Button>
                 </Modal.Footer>
             </Modal>, document.body as HTMLElement)
     )

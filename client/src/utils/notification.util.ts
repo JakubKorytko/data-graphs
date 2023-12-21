@@ -1,26 +1,26 @@
 import { NotificationInterface } from './notification.util.type';
 
-// ważne: nie są to kody odpowiedzi http, tylko niestandardowe kody błędów powiadomień
+// important: these are not http response codes, but custom notification error codes
 
 const codes: {[key: number]: string} = {
-    0: 'Nie można połączyć się z serwerem. Następna próba nastąpi za 5 sekund.',
-    1: 'Pobieranie danych z serwera...',
-    2: 'Próba połączenia z serwerem...',
-    3: 'Udało się połączyć z serwerem.',
+    0: 'Unable to connect to the server. Next attempt in 5 seconds.',
+    1: 'Fetching data from the server...',
+    2: 'Trying to connect to the server...',
+    3: 'Successfully connected to the server.',
 
-    200: 'Pobrano dane z serwera.',
-    409: "Kanał z podaną nazwą już istnieje.",
-    500: 'Nie można pobrać danych z serwera. Następna próba nastąpi za 10 sekund.',
+    200: 'Data fetched from the server.',
+    409: "A channel with the given name already exists.",
+    500: 'Unable to retrieve data from the server. Next attempt in 10 seconds.',
 }
 
 const titles: {[key: number]: string} = {
     1000: 'Wrong name',
     1001: 'Wrong number of clients',
 
-    400: 'Błąd w żądaniu',
-    401: 'Brak autoryzacji',
-    403: 'Brak dostępu',
-    404: 'Nie znaleziono'
+    400: 'Bad request',
+    401: 'Unauthorized',
+    403: 'Forbidden',
+    404: 'Not found',
 }
 
 export const generate = (code: number, message: string) => {

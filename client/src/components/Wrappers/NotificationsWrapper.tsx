@@ -28,7 +28,7 @@ const NotficationsWrapper = (props: NotificationWrapperProps) => {
     let removeTimeouts: number[] = [];
 
     const notify = (object: { code: number, message: string }, seconds: number) => {
-        if (object.code === 500 || object.code === 200) dispatch({ type: "remove", object: { code: 1, message: "Pobieranie danych z serwera..." } })
+        if (object.code === 500 || object.code === 200) dispatch({ type: "remove", object: { code: 1, message: "Fetching data from the server..." } })
         if (object.code === 200) dispatch({ type: "remove", object: { code: 500, message: "Internal server error" } });
 
         dispatch({ type: "add", object: object });

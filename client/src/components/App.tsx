@@ -14,7 +14,7 @@ export default function App() {
             <NotificationsWrapper>
                 <Loader>
                         <div style={style.div}>
-                            <h1>Statystyki kanałów</h1>
+                            <h1>Channel statistics</h1>
                         </div>
                         <Row style={style.row}>
                             <Col style={style.col}>

@@ -81,8 +81,8 @@ const TableRow = (props: { data: ApiData | false, row_index: number }) => {
     const items = Object.values(row).map((item: string, item_index: number) => <td style={style.center} key={item_index}>{item}</td>)
 
     const buttons = [
-        { variant: "light", text: "Usuń", colspan: 1, onClick: () => { setShowModal(true) } },
-        { variant: "light", text: "Edytuj", colspan: 1, onClick: () => { setEditMode(true); } }
+        { variant: "light", text: "Delete", colspan: 1, onClick: () => { setShowModal(true) } },
+        { variant: "light", text: "Edit", colspan: 1, onClick: () => { setEditMode(true); } }
     ]
 
     const percent = (Number(row[index]) / (sum != 0 ? sum : 1) * 100).toFixed(2);
