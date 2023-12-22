@@ -18,10 +18,10 @@ function Table(props: TableProps) {
     return <th key={thKey}>{category}</th>;
   }) : null;
 
-  const rows = data ? data.channels.data.map((row: Channel, rowIndex: number) => {
-    const tableRowKey = `${row.id}-${rowIndex}`;
-    return <TableRow key={tableRowKey} data={data} rowIndex={rowIndex} />;
-  }) : null;
+  const rows = data ? data.channels.data.map((
+    row: Channel,
+    rowIndex: number,
+  ) => <TableRow key={row.id} data={data} rowIndex={rowIndex} />) : null;
 
   const { clients, name } = props;
 

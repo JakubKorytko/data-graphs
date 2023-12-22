@@ -82,16 +82,16 @@ function TableRow(props: { data: ApiData | false, rowIndex: number }) {
     .reduce((acc: number, channel: Channel) => acc + Number(channel[index]), 0);
 
   const items = Object.values(row).map((item: string, itemIndex: number) => {
-    const key = `channel_${row.id}_${itemIndex}_${new Date().getTime()}`;
+    const key = `channel_${row.id}_${itemIndex}`;
     return <td style={style.center} key={key}>{item}</td>;
   });
 
   const buttons = [
     {
-      variant: 'light', text: 'Delete', colspan: 1, onClick: () => { setShowModal(true); },
+      id: 0, variant: 'light', text: 'Delete', colspan: 1, onClick: () => { setShowModal(true); },
     },
     {
-      variant: 'light', text: 'Edit', colspan: 1, onClick: () => { setEditMode(true); },
+      id: 1, variant: 'light', text: 'Edit', colspan: 1, onClick: () => { setEditMode(true); },
     },
   ];
 
@@ -110,27 +110,22 @@ function TableRow(props: { data: ApiData | false, rowIndex: number }) {
     </td>
   );
 
-  const buttonsList = buttons.map((button, buttonIndex) => {
-    const tdKey = `td_${buttonIndex}_${new Date().getTime()}`;
-    const buttonKey = `button_${buttonIndex}_${new Date().getTime()}`;
-
-    return (
-      <td
-        key={tdKey}
-        colSpan={button.colspan}
-        style={style.button}
+  const buttonsList = buttons.map((button) => (
+    <td
+      key={button.id}
+      colSpan={button.colspan}
+      style={style.button}
+    >
+      <Button
+        key={button.id}
+        onClick={button.onClick}
+        onKeyDown={button.onClick}
+        variant={button.variant}
       >
-        <Button
-          key={buttonKey}
-          onClick={button.onClick}
-          onKeyDown={button.onClick}
-          variant={button.variant}
-        >
-          {button.text}
-        </Button>
-      </td>
-    );
-  });
+        {button.text}
+      </Button>
+    </td>
+  ));
 
   const editRowElement = (
     <EditRow

@@ -22,34 +22,29 @@ function EditRow(props: EditRowProps) {
 
   const buttons = [
     {
-      variant: 'light', text: 'Cancel', colspan: 1, onClick: () => { setEditMode(false); },
+      id: 0, variant: 'light', text: 'Cancel', colspan: 1, onClick: () => { setEditMode(false); },
     },
     {
-      variant: 'light', text: 'Save', colspan: 1, onClick: () => { editModeCallback(name, clients); },
+      id: 1, variant: 'light', text: 'Save', colspan: 1, onClick: () => { editModeCallback(name, clients); },
     },
   ];
 
-  const buttonsList = buttons.map((button, index) => {
-    const tdKey = `${button.text}-${index}`;
-    const buttonKey = `${button.text}-${index}`;
-
-    return (
-      <td
-        key={tdKey}
-        colSpan={button.colspan}
-        style={style.button}
+  const buttonsList = buttons.map((button) => (
+    <td
+      key={button.id}
+      colSpan={button.colspan}
+      style={style.button}
+    >
+      <Button
+        key={button.id}
+        onKeyDown={button.onClick}
+        onClick={button.onClick}
+        variant={button.variant}
       >
-        <Button
-          key={buttonKey}
-          onKeyDown={button.onClick}
-          onClick={button.onClick}
-          variant={button.variant}
-        >
-          {button.text}
-        </Button>
-      </td>
-    );
-  });
+        {button.text}
+      </Button>
+    </td>
+  ));
 
   const nameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = validators.name(data.columns_properties, e.target.value);
