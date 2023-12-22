@@ -2,13 +2,16 @@
 // related to: https://github.com/facebook/react/issues/9402
 // remove string after bug fix
 
-import Button from 'react-bootstrap/Button';
 import React, { useContext } from 'react';
-import { limit, validators } from 'utils/formsValidator.util';
-import { DataContext } from 'components/Wrappers/Context';
+import Button from 'react-bootstrap/Button';
+
 import style from 'components/Table/Table.style';
 import { TableControlsProps } from 'components/Table/Form/Controls.type';
 import FormGroup from 'components/Table/Form/Group';
+
+import { DataContext } from 'components/Wrappers/Context';
+
+import { limit, validators } from 'utils/formsValidator.util';
 
 function TableControls(props: TableControlsProps) {
   const { data } = useContext(DataContext);

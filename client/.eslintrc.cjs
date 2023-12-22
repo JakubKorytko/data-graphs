@@ -29,6 +29,55 @@ module.exports = {
         "import/order": [ "error", {
             groups: ["builtin", "external", "internal", "parent", "sibling", "index", "object", "type"],
             pathGroupsExcludedImportTypes: ["type"],
+            pathGroups: [
+                {
+                    pattern: "components/Chart/**",
+                    group: "internal",
+                    position: "after"
+                },
+                {
+                    pattern: "components/Modals/**",
+                    group: "internal",
+                    position: "after"
+                },
+                {
+                    pattern: "components/Notifications/**",
+                    group: "internal",
+                    position: "after",
+                },
+                {
+                    pattern: "components/Table/**",
+                    group: "internal",
+                    position: "after"
+                },
+                {
+                    pattern: "components/Wrappers/**",
+                    group: "internal",
+                    position: "after"
+                },
+                {
+                    pattern: "components/**",
+                    group: "internal",
+                    position: "after"
+                },
+                {
+                    pattern: "utils/**",
+                    group: "internal",
+                    position: "after"
+                },
+                {
+                    pattern: "**/*.style",
+                    group: "index",
+                },
+                {
+                    pattern: "**/*.css",
+                    group: "index",
+                },
+                {
+                    pattern: "**/*.type",
+                    group: "index",
+                }
+            ],
             "newlines-between": "always"
         }]
     }

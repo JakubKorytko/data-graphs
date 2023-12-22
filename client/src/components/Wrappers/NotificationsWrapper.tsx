@@ -1,8 +1,11 @@
 import React, { useEffect, useMemo, useReducer } from 'react';
+
 import Notifications from 'components/Notifications/Container';
-import { State } from 'utils/api.util.type';
+
 import { NotificationWrapperProps } from 'components/Wrappers/NotificationsWrapper.type';
 import { NotificationsContext } from 'components/Wrappers/Context';
+
+import { State } from 'utils/api.util.type';
 
 const reducer = (notifications: State[], action: { type: string, object: State }): State[] => {
   const exists = notifications.some(

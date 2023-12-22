@@ -1,13 +1,17 @@
-import { Button } from 'react-bootstrap';
 import React, { useContext, useState } from 'react';
+import { Button } from 'react-bootstrap';
+
+import DeleteConfirm from 'components/Modals/DeleteConfirm';
+
+import EditRow from 'components/Table/EditRow';
+import style from 'components/Table/Table.style';
+
+import { DataContext } from 'components/Wrappers/Context';
+
+import { remove, update } from 'utils/api.util';
 import {
   ApiData, Channel, CustomMessage, CustomResponse,
 } from 'utils/api.util.type';
-import { remove, update } from 'utils/api.util';
-import DeleteConfirm from 'components/Modals/DeleteConfirm';
-import { DataContext } from 'components/Wrappers/Context';
-import EditRow from 'components/Table/EditRow';
-import style from 'components/Table/Table.style';
 
 function TableRow(props: { data: ApiData | false, rowIndex: number }) {
   const [showModal, setShowModal] = useState(false);

@@ -1,8 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { Toast } from 'react-bootstrap';
+
 import { NotificationProps } from 'components/Notifications/Component/Notification.type';
 import Title from 'components/Notifications/Component/Title';
 import Body from 'components/Notifications/Component/Body';
+
 import { NotificationsContext } from 'components/Wrappers/Context';
 
 function Notification(props: NotificationProps) {

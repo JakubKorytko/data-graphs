@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { createPortal } from 'react-dom';
+
 import { DeleteConfirmProps } from 'components/Modals/DeleteConfirm.type';
 
 const DeleteConfirm = (props: DeleteConfirmProps) => (

@@ -1,8 +1,11 @@
 import React, { useContext } from 'react';
 import { ToastContainer } from 'react-bootstrap';
-import generate from 'utils/notification.util';
+
 import Notification from 'components/Notifications/Component/Notification';
+
 import { NotificationsContext } from 'components/Wrappers/Context';
+
+import generate from 'utils/notification.util';
 
 function Notifications() {
   const { list, remove } = useContext(NotificationsContext);

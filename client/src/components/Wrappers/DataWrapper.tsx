@@ -1,11 +1,13 @@
 import React, {
   useContext, useEffect, useMemo, useState,
 } from 'react';
+
+import { DataWrapperProps } from 'components/Wrappers/DataWrapper.type';
+import { DataContext, NotificationsContext } from 'components/Wrappers/Context';
+
 import { ApiData, CustomMessage } from 'utils/api.util.type';
 import { read } from 'utils/api.util';
 import chartColors from 'utils/chartColors.util';
-import { DataWrapperProps } from 'components/Wrappers/DataWrapper.type';
-import { DataContext, NotificationsContext } from 'components/Wrappers/Context';
 
 function DataWrapper(props: DataWrapperProps) {
   const [data, setData] = useState<ApiData | false>(false);

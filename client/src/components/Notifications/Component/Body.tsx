@@ -1,5 +1,6 @@
 import React from 'react';
 import { Toast } from 'react-bootstrap';
+
 import { NotificationBodyProps } from 'components/Notifications/Component/Body.type';
 
 function Body(props: NotificationBodyProps) {

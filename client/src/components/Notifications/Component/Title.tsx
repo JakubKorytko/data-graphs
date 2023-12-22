@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Toast } from 'react-bootstrap';
-import generateTime from 'utils/timeString.util';
+
 import { NotificationTitleProps } from 'components/Notifications/Component/Title.type';
+
+import generateTime from 'utils/timeString.util';
 
 function Title(props: NotificationTitleProps) {
   let launchedTime: number;

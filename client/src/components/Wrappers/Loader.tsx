@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Radio } from 'react-loader-spinner';
-import { test } from 'utils/api.util';
+
 import style from 'components/Wrappers/Loader.style';
 import { NotificationsContext } from 'components/Wrappers/Context';
 import DataWrapper from 'components/Wrappers/DataWrapper';
 import { ConnectionType } from 'components/Wrappers/Loader.type';
+
+import { test } from 'utils/api.util';
 
 function Loader(props: { children: React.ReactNode }) {
   const [connection, setConnection] = useState<ConnectionType>({ count: 0, result: false });

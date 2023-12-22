@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { DataContext } from 'components/Wrappers/Context';
+
 import Table from 'components/Table/Table';
 import TableForm from 'components/Table/Form/Container';
 import { TableProps } from 'components/Table/Table.type';
+
+import { DataContext } from 'components/Wrappers/Context';
 
 function TableContainer() {
   const { data } = useContext(DataContext);

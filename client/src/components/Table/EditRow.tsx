@@ -1,9 +1,12 @@
 import React, { useContext, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { DataContext } from 'components/Wrappers/Context';
-import { validators } from 'utils/formsValidator.util';
+
 import style from 'components/Table/Table.style';
 import { EditRowProps } from 'components/Table/EditRow.type';
+
+import { DataContext } from 'components/Wrappers/Context';
+
+import { validators } from 'utils/formsValidator.util';
 
 function EditRow(props: EditRowProps) {
   const {

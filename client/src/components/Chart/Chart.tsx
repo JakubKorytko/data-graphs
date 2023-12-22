@@ -1,11 +1,13 @@
+import React, { useContext } from 'react';
 import {
   ArcElement, Chart as ChartJS, Legend, Tooltip,
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import React, { useContext } from 'react';
 import { Pie } from 'react-chartjs-2';
-import { DataContext } from 'components/Wrappers/Context';
+
 import { data, options } from 'components/Chart/Chart.config';
+
+import { DataContext } from 'components/Wrappers/Context';
 
 ChartJS.register(ChartDataLabels);
 ChartJS.register(ArcElement, Tooltip, Legend);

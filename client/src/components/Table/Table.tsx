@@ -1,11 +1,14 @@
-import { Table as BootstrapTable } from 'react-bootstrap';
 import React, { useContext } from 'react';
-import { Channel } from 'utils/api.util.type';
-import { DataContext } from 'components/Wrappers/Context';
+import { Table as BootstrapTable } from 'react-bootstrap';
+
 import { TableProps } from 'components/Table/Table.type';
 import TableControls from 'components/Table/Form/Controls';
 import style from 'components/Table/Table.style';
 import TableRow from 'components/Table/TableRow';
+
+import { DataContext } from 'components/Wrappers/Context';
+
+import { Channel } from 'utils/api.util.type';
 
 function Table(props: TableProps) {
   const { data } = useContext(DataContext);
