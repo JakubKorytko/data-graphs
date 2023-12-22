@@ -1,33 +1,40 @@
 import { Table as BootstrapTable } from 'react-bootstrap';
-import { Channel } from '../../utils/api.util.type';
-import { DataContext } from '../Wrappers/Context';
-import { TableProps } from './Table.type';
-import TableControls from './Form/Controls';
-import { useContext } from 'react';
-import style from './Table.style';
-import TableRow from './TableRow';
+import React, { useContext } from 'react';
+import { Channel } from 'utils/api.util.type';
+import { DataContext } from 'components/Wrappers/Context';
+import { TableProps } from 'components/Table/Table.type';
+import TableControls from 'components/Table/Form/Controls';
+import style from 'components/Table/Table.style';
+import TableRow from 'components/Table/TableRow';
 
-const Table = (props: TableProps) => {
+function Table(props: TableProps) {
+  const { data } = useContext(DataContext);
 
-    const { data } = useContext(DataContext);
+  const categories = data ? data.columns.map((category: string, index: number) => {
+    const thKey = `${category}-${index}`;
+    return <th key={thKey}>{category}</th>;
+  }) : null;
 
-    const categories = data ? data.columns.map((category: string, index: number) => <th key={index}>{category}</th>) : null;
+  const rows = data ? data.channels.data.map((row: Channel, rowIndex: number) => {
+    const tableRowKey = `${row.id}-${rowIndex}`;
+    return <TableRow key={tableRowKey} data={data} rowIndex={rowIndex} />;
+  }) : null;
 
-    const rows = data ? data.channels.data.map((row: Channel, row_index: number) => <TableRow key={row_index} {...{data, row_index}} />) : null;
+  const { clients, name } = props;
 
-    return (
-        <BootstrapTable striped bordered hover style={style.bg_white}>
-            <thead>
-                <tr>
-                    {categories}
-                </tr>
-            </thead>
-            <tbody>
-                {rows}
-                <TableControls {...props} />
-            </tbody>
-        </BootstrapTable>
-    );
+  return (
+    <BootstrapTable striped bordered hover style={style.bg_white}>
+      <thead>
+        <tr>
+          {categories}
+        </tr>
+      </thead>
+      <tbody>
+        {rows}
+        <TableControls clients={clients} name={name} />
+      </tbody>
+    </BootstrapTable>
+  );
 }
 
 export default Table;

@@ -1,37 +1,37 @@
-import { Row, Col } from 'react-bootstrap';
-import Table from './Table';
-import TableForm from './Form/Container';
-import { useContext } from 'react';
-import { DataContext } from '../Wrappers/Context';
+import React, { useContext } from 'react';
+import { Col, Row } from 'react-bootstrap';
+import { DataContext } from 'components/Wrappers/Context';
+import Table from 'components/Table/Table';
+import TableForm from 'components/Table/Form/Container';
+import { TableProps } from 'components/Table/Table.type';
 
-const TableContainer = () => {
+function TableContainer() {
+  const { data } = useContext(DataContext);
 
-    const { data } = useContext(DataContext);
+  const isFetched = data !== false;
 
-    const isFetched = data !== false;
+  const defaultProps: TableProps = {
+    clients: {
+      value: 0,
+      set: () => true,
+    },
+    name: {
+      value: '',
+      set: () => true,
+    },
+  };
 
-    const defaultProps = { 
-        clients: {
-            value: 0,
-            set: () => { return true }
-        }, name: {
-            value: '',
-            set: () => { return true }
-        }
-    };
+  if (!isFetched) return null;
 
-    if (!isFetched) return null;
-
-    return (
-        <Row>
-            <Col>
-                <TableForm>
-                    <Table {...defaultProps} />
-                </TableForm>
-            </Col>
-        </Row>
-    )
-
+  return (
+    <Row>
+      <Col>
+        <TableForm>
+          <Table clients={defaultProps.clients} name={defaultProps.name} />
+        </TableForm>
+      </Col>
+    </Row>
+  );
 }
 
 export default TableContainer;

@@ -1,12 +1,11 @@
-import { ColumnsProperties } from './api.util.type';
+import { ColumnsProperties } from 'utils/api.util.type';
 
-export const limit = (columns_properties: ColumnsProperties , column: string): number => {
+export const limit = (columns_properties: ColumnsProperties, column: string): number => {
   if (columns_properties && columns_properties[column]) {
-      return columns_properties[column].size;
-  } else {
-      return 0;
+    return columns_properties[column].size;
   }
-}
+  return 0;
+};
 
 export const validators = {
   name: (columns_properties: ColumnsProperties, name: string) => {
@@ -17,7 +16,7 @@ export const validators = {
   clients: (columns_properties: ColumnsProperties, clients: string) => {
     const clientsNumber = Number(clients);
 
-    if (isNaN(clientsNumber)) return false;
+    if (Number.isNaN(clientsNumber)) return false;
 
     const clientsNumberInt = Math.floor(clientsNumber);
 
@@ -25,5 +24,5 @@ export const validators = {
       return limit(columns_properties, 'clients') - 1;
     }
     return clientsNumberInt;
-  }
-}
+  },
+};

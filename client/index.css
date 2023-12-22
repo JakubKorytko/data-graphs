@@ -24,6 +24,6 @@ body,
 
 @keyframes blinker {
     50% {
-        background-color: rgb(161, 253, 164);
+        background-color: rgb(161 253 164);
     }
 }

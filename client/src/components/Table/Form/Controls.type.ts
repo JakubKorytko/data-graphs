@@ -1,4 +1,3 @@
-export interface TableControlsProps {
-    clients: {value: number, set: Function},
-    name: {value: string, set: Function}
-}
+import { TableProps } from 'components/Table/Table.type';
+
+export type TableControlsProps = TableProps;

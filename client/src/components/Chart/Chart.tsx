@@ -1,19 +1,20 @@
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import {
+  ArcElement, Chart as ChartJS, Legend, Tooltip,
+} from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { Pie } from 'react-chartjs-2';
-import { DataContext } from '../Wrappers/Context';
-import { options, data } from './Chart.config';
+import { DataContext } from 'components/Wrappers/Context';
+import { data, options } from 'components/Chart/Chart.config';
 
 ChartJS.register(ChartDataLabels);
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const Chart = () => {
-
+function Chart() {
   const context = useContext(DataContext).data;
 
-  const channels = context ? context.channels.data: false;
-  const colors = context ? context.chartColors: [];
+  const channels = context ? context.channels.data : false;
+  const colors = context ? context.chartColors : [];
 
   return <Pie data={data(channels, colors)} options={options} />;
 }

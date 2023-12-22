@@ -1,60 +1,78 @@
 export interface ApiData {
-    type: string;
-    columns: string[];
-    columns_properties: ColumnsProperties;
-    channels: Channels;
-    chartColors: string[];
+  type: string;
+  columns: string[];
+  columns_properties: ColumnsProperties;
+  channels: Channels;
+  chartColors: string[];
 }
 
-export interface State { 
-    code: number, 
-    message: string 
+export interface State {
+  code: number,
+  message: string
 }
 
 export interface Channels {
-    current_page: number;
-    data: Channel[];
-    first_page_url: string;
-    from: null;
-    last_page: number;
-    last_page_url: string;
-    links: Link[];
-    next_page_url: null;
-    path: string;
-    per_page: number;
-    prev_page_url: null;
-    to: null;
-    total: number;
+  current_page: number;
+  data: Channel[];
+  first_page_url: string;
+  from: null;
+  last_page: number;
+  last_page_url: string;
+  links: Link[];
+  next_page_url: null;
+  path: string;
+  per_page: number;
+  prev_page_url: null;
+  to: null;
+  total: number;
 }
 
 export interface Channel {
-    id: number;
-    name: string;
-    clients: number;
+  id: number;
+  name: string;
+  clients: number;
 }
 
 export interface Link {
-    url: null | string;
-    label: string;
-    active: boolean;
+  url: null | string;
+  label: string;
+  active: boolean;
 }
 
 export interface ColumnsProperties {
-    [key: string]: Property;
+  [key: string]: Property;
 }
 
 export interface Property {
-    type: string;
-    size: number;
+  type: string;
+  size: number;
 }
 
 export interface CustomMessage {
-    type: string,
-    code: number,
-    message: string
+  type: string,
+  code: number,
+  message: string
 }
 
 export interface CustomResponse {
-    type: string,
-    response: Response
+  type: string,
+  response: Response
 }
+
+export type UpdateFunction = (
+  id: number,
+  data: { name: string, clients: number }
+) => Promise<CustomMessage | CustomResponse>;
+
+export type RemoveFunction = (
+  id: number
+) => Promise<CustomMessage | CustomResponse>;
+
+export type CreateFunction = (
+  data: { name: string, clients: number }
+) => Promise<CustomMessage | CustomResponse>;
+
+export type ReadFunction = (
+  limit: number,
+  page: number
+) => Promise<ApiData | CustomMessage>;

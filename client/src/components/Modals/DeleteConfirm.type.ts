@@ -1,5 +1,5 @@
 export interface DeleteConfirmProps {
-    callback: Function,
-    show: boolean,
-    id: number
+  callback: Function,
+  show: boolean,
+  id: number
 }

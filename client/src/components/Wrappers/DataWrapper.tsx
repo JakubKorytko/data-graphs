@@ -1,71 +1,83 @@
-import { DataWrapperProps } from "./DataWrapper.type";
-import { ApiData, CustomMessage } from "../../utils/api.util.type";
-import { useState, useEffect, useContext } from "react";
-import { read, } from "../../utils/api.util";
-import chartColors from "../../utils/chartColors.util";
-import { DataContext, NotificationsContext } from "./Context";
+import React, {
+  useContext, useEffect, useMemo, useState,
+} from 'react';
+import { ApiData, CustomMessage } from 'utils/api.util.type';
+import { read } from 'utils/api.util';
+import chartColors from 'utils/chartColors.util';
+import { DataWrapperProps } from 'components/Wrappers/DataWrapper.type';
+import { DataContext, NotificationsContext } from 'components/Wrappers/Context';
 
+function DataWrapper(props: DataWrapperProps) {
+  const [data, setData] = useState<ApiData | false>(false);
+  const { notify } = useContext(NotificationsContext);
 
-const DataWrapper = (props: DataWrapperProps) => {
+  const { connection, children } = props;
 
-    const [data, setData] = useState<ApiData | false>(false);
-    const { notify } = useContext(NotificationsContext);
+  let isFetching = false;
+  const delayedTimeouts: number[] = [];
 
-    let isFetching = false;
-    let delayedTimeouts: number[] = [];
+  const reconnectLoop = (
+    error: CustomMessage,
+    callback: () => Promise<CustomMessage | ApiData>,
+  ) => {
+    notify(error, 10);
 
-    const fetchData = () => {
-        if (isFetching) return;
-        if (!props.connection) return;
+    if (delayedTimeouts[error.code]) {
+      clearTimeout(delayedTimeouts[error.code]);
+    }
+    delayedTimeouts[error.code] = window.setTimeout(() => {
+      notify({ code: 2, message: "Can't fetch the data" }, 5);
+      isFetching = false;
+      callback();
+    }, 10000);
+  };
 
-        isFetching = true;
-        return new Promise((resolve, reject) => {
-            read().then((res) => {
-                if (res.type == 'error') {
-                    reconnectLoop(res as CustomMessage)
-                    reject(res);
-                }
-                else {
-                    const data = res as ApiData;
-                    setData({ ...data, chartColors: chartColors(data.channels.data.length) });
+  const fetchData = () => {
+    const errorCustomMessage: CustomMessage = { type: 'error', code: 500, message: "Can't fetch the data" };
 
-                    notify({ code: 200, message: "Data fetched from the server" }, 5);
-
-                    isFetching = false;
-
-                    resolve(res);
-                }
-            })
-        });
+    if (isFetching) {
+      return new Promise<CustomMessage>(
+        (resolve) => { resolve(errorCustomMessage); },
+      );
     }
 
-    const reconnectLoop = (error: CustomMessage) => {
-
-        notify(error, 10);
-
-        delayedTimeouts[error.code] && clearTimeout(delayedTimeouts[error.code]);
-        delayedTimeouts[error.code] = window.setTimeout(() => {
-
-            notify({ code: 2, message: "Can't fetch the data" }, 5);
-            isFetching = false;
-            fetchData()
-
-        }, 10000);
+    if (!connection) {
+      return new Promise<CustomMessage>(
+        (resolve) => { resolve(errorCustomMessage); },
+      );
     }
 
-    useEffect(() => {
-        fetchData();
-    }, []);
+    isFetching = true;
+    return new Promise<CustomMessage | ApiData>((resolve, reject) => {
+      read().then((res) => {
+        if (res.type === 'error') {
+          reconnectLoop(res as CustomMessage, fetchData);
+          reject(res);
+        } else {
+          const apiResData = res as ApiData;
+          setData({ ...apiResData, chartColors: chartColors(apiResData.channels.data.length) });
 
+          notify({ code: 200, message: 'Data fetched from the server' }, 5);
 
-    const contextProxy = {
-        data: data,
-        fetchData: fetchData,
-        reconnect: reconnectLoop
-    }
+          isFetching = false;
 
-    return <DataContext.Provider value={contextProxy}>{props.children}</DataContext.Provider>
+          resolve(res);
+        }
+      });
+    });
+  };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const contextProxy = useMemo(() => ({
+    data,
+    fetchData,
+    reconnect: (error: CustomMessage) => reconnectLoop(error, fetchData),
+  }), [data]);
+
+  return <DataContext.Provider value={contextProxy}>{children}</DataContext.Provider>;
 }
 
 export default DataWrapper;

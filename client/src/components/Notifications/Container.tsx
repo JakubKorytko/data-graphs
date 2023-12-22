@@ -1,27 +1,32 @@
-import { useContext } from 'react';
-import Notification from './Component/Notification';
-import { Row, Col, ToastContainer } from 'react-bootstrap';
-import { NotificationsContext } from '../Wrappers/Context';
-import { generate } from '../../utils/notification.util';
+import React, { useContext } from 'react';
+import { ToastContainer } from 'react-bootstrap';
+import generate from 'utils/notification.util';
+import Notification from 'components/Notifications/Component/Notification';
+import { NotificationsContext } from 'components/Wrappers/Context';
 
-const Notifications = () => {
+function Notifications() {
+  const { list, remove } = useContext(NotificationsContext);
 
-    const { list, remove } = useContext(NotificationsContext);
+  const notificationList = list.map((notification) => {
+    const notificationObject = generate(notification.code, notification.message);
+
+    const removeNotification = () => {
+      remove(notification.code);
+    };
 
     return (
-        <ToastContainer position="top-end" id="toaster">
-            {list.map((notification) => {
+      <Notification remove={removeNotification} key={notificationObject.code}>
+        <Notification.Title>{notificationObject.title}</Notification.Title>
+        <Notification.Body>{notificationObject.body}</Notification.Body>
+      </Notification>
+    );
+  });
 
-                const notificationObject = generate(notification.code, notification.message);
-
-                return (<Notification remove={remove.bind(null, notification.code)} key={notificationObject.code}>
-                    <Notification.Title>{notificationObject.title}</Notification.Title>
-                    <Notification.Body>{notificationObject.body}</Notification.Body>
-                </Notification>)
-            })}
-        </ToastContainer>
-    )
-
+  return (
+    <ToastContainer position="top-end" id="toaster">
+      {notificationList}
+    </ToastContainer>
+  );
 }
 
 export default Notifications;

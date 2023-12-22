@@ -1,9 +1,9 @@
-export type TableProp = {
-    value: number;
-    set: Function;
-}
+export type TableProp<T> = {
+  value: T;
+  set: Function;
+};
 
 export interface TableProps {
-    clients: TableProp,
-    name: TableProp
+  clients: TableProp<number>;
+  name: TableProp<string>
 }
