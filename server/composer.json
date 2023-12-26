@@ -50,6 +50,31 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "test": [
+            "@php artisan test"
+        ],
+        "dev": [
+            "@php artisan serve"
+        ],
+        "env": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "setup": [
+            "@composer install",
+            "@composer env",
+            "@php artisan migrate",
+            "@php artisan db:seed",
+            "@php artisan key:generate"
+        ],
+        "prod": [
+            "@composer setup",
+            "@composer dump-autoload --optimize --no-scripts",
+            "@php artisan config:cache",
+            "@php artisan event:cache",
+            "@php artisan route:cache",
+            "@php artisan optimize",
+            "@yarn build"
         ]
     },
     "extra": {
