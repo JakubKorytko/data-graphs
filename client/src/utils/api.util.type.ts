@@ -73,6 +73,6 @@ export type CreateFunction = (
 ) => Promise<CustomMessage | CustomResponse>;
 
 export type ReadFunction = (
-  limit: number,
-  page: number
+  limit?: number,
+  page?: number
 ) => Promise<ApiData | CustomMessage>;
