@@ -1,218 +1,224 @@
-# AcquisitionChannels
+# Data Graphs
 
-- [AcquisitionChannels](#acquisitionchannels)
-- [Struktura Repozytorium](#struktura-repozytorium)
-- [Technologie](#technologie)
-- [Funkcje](#funkcje)
-- [Instalacja](#instalacja)
-  - [Wymagania](#wymagania)
-  - [Krok po kroku](#krok-po-kroku)
-- [Konfiguracja](#konfiguracja)
-  - [Zmiana domyślnego adresu klienta (Cors)](#zmiana-domyślnego-adresu-klienta-cors)
-  - [Zmiana domyślnego adresu serwera](#zmiana-domyślnego-adresu-serwera)
-- [Ścieżki API](#ścieżki-api)
-  - [GET /channels/read](#get-channelsread)
-  - [POST /channels/create](#post-channelscreate)
-    - [Parametry](#parametry)
-  - [PUT /channels/update/{id}](#put-channelsupdateid)
-    - [Parametry](#parametry-1)
-  - [DELETE /channels/delete/{id}](#delete-channelsdeleteid)
-- [Testy](#testy)
-  - [Testowanie serwera](#testowanie-serwera)
-  - [Testowanie klienta](#testowanie-klienta)
+[![Version](https://img.shields.io/github/package-json/v/JakubKorytko/data-graphs?style=for-the-badge)](https://img.shields.io/github/v/tag/JakubKorytko/data-graphs?style=for-the-badge&label=version)
+[![License](https://img.shields.io/github/license/JakubKorytko/data-graphs?style=for-the-badge)](https://img.shields.io/github/license/JakubKorytko/data-graphs?style=for-the-badge&label=license)
 
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
+![React Testing-Library](https://img.shields.io/badge/-React_Testing_Library-%23E33332?style=for-the-badge&logo=testing-library&logoColor=white)
+![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
+![PHPUnit](https://img.shields.io/badge/PHPUnit-white.svg?style=for-the-badge&logo=php&logoColor=%23777BB4)
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+![Yarn](https://img.shields.io/badge/yarn-%232C8EBB.svg?style=for-the-badge&logo=yarn&logoColor=white)
+![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
+![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white)
+![Laravel](https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white)
+![MariaDB](https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white)
+![React Context](https://img.shields.io/badge/react_context-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 
-Aplikacja składa się z dwóch części: frontendu i backendu, które są zaimplementowane w dwóch osobnych folderach "server" i "client". Backend został stworzony w frameworku Laravel w języku PHP, natomiast frontend w React z użyciem TypeScriptu. Aplikacja umożliwia pobieranie danych z bazy danych (CRUD) dotyczących kanałów pozyskiwania klientów oraz ilości klientów zdobytych za pomocą poszczególnych kanałów, a następnie wyświetla je wraz z wykresem kołowym. Użytkownicy mogą dodawać, edytować i usuwać rekordy w bazie danych za pomocą intuicyjnego UI. Aplikacja posiada pełną obsługę błedów (po stronie serwera jak i klienta). Do generowania wykresów wykorzystana została biblioteka "react-chartjs-2".
+## Table of Contents
 
-# Struktura Repozytorium
+- [Data Graphs](#data-graphs)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+    - [Client installation](#client-installation)
+    - [Server installation](#server-installation)
+  - [Endpoints](#endpoints)
+  - [Production build](#production-build)
+    - [Build client](#build-client)
+    - [Prepare server](#prepare-server)
+  - [Tests](#tests)
+  - [Contributing](#contributing)
+  - [Contact](#contact)
+  - [License](#license)
+  - [TODO / Upcoming features](#todo--upcoming-features)
 
-Repozytorium jest podzielone na 2 osobne części: frontend i backend, które są zorganizowane w osobnych folderach "server" i "client". Oto krótki opis struktury repozytorium:
+## Introduction
 
-- server: Folder zawierający kod backendu aplikacji, napisanego w frameworku Laravel w języku PHP. Znajdują się tu pliki związane z logiką biznesową, zarządzaniem bazą danych oraz obsługą API.
+In an age of information overload, making sense of raw data has become a critical skill. Welcome to Data Graphs, your all-in-one solution for transforming mundane data sets into compelling visual stories.
 
-- client: Folder zawierający kod frontendu aplikacji, napisanego w React z użyciem TypeScriptu. Znajdują się tu pliki związane z komponentami interfejsu użytkownika, logiką interakcji z użytkownikiem oraz komunikacją z backendem.
+In today's dynamic landscape, where data drives decision making across industries, the ability to effectively communicate insights is paramount. With Data Graphs, you can effortlessly create stunning data charts that not only reveal hidden patterns and trends, but also captivate your audience with visually compelling narratives.
 
-Dodatkowo, w repozytorium mogą znajdować się inne pliki takie jak pliki konfiguracyjne, pliki testowe, dokumentacja, czy pliki zasobów  używanych w aplikacji.
+## Prerequisites
 
-# Technologie
+**Note:** Versions stated below are the ones used during development. Other versions may work as well, but they have not been tested.
 
-Aplikacja "AcquisitionChannels" została zbudowana przy użyciu następujących technologii:
+- [Node.js](https://nodejs.org/en/) `v20.10.0`
+- [Yarn](https://yarnpkg.com/) `v1.22.21`
+- [PHP](https://www.php.net/) `v8.2.4`
+- [Composer](https://getcomposer.org/) `v2.5.5`
+- [Laravel](https://laravel.com/) `v10.38.1`
+- [Any database supported by Laravel](https://laravel.com/docs/10.x/database) `MariaDB v10.4.27 originally used`
 
-Backend:
+## Installation
 
-- Laravel: Popularny framework do tworzenia aplikacji webowych w języku PHP.
+1. Clone the repository:
 
-- PHPUnit - Framework do testowania aplikacji napisanych w PHP. Wybrany ze względu na jego popularność w społeczności programistycznej.
+    ```bash
+    git clone https://github.com/JakubKorytko/data-graphs
+    ```
 
-- MySQL: Relacyjna baza danych, użyta do przechowywania danych w aplikacji.
-  
-Frontend:
+1. Enter the project directory:
 
-- React: Popularna biblioteka JavaScript do budowy interfejsów użytkownika.
+    ```bash
+    cd data-graphs
+    ```
 
-- TypeScript: Rozszerzenie języka JavaScript o statyczną typizację. Wybrany ze względu na możliwość wykrywania błędów na etapie kompilacji oraz ułatwienie pracy z większymi projektami.
+### Client installation
 
-- Bootstrap: Popularna biblioteka CSS do tworzenia responsywnych interfejsów użytkownika.
+1. Enter the client directory:
 
-Biblioteki i narzędzia dodatkowe:
+    ```bash
+    cd client
+    ```
 
-- react-chartjs-2: Biblioteka do generowania interaktywnych wykresów w aplikacjach React, wykorzystana do tworzenia wykresów w aplikacji.
+1. Install dependencies:
 
-- Git: System kontroli wersji, wykorzystany do zarządzania kodem źródłowym aplikacji i współpracy zespołowej.
+    ```bash
+    yarn install
+    ```
 
-- react-loader-spinner: Biblioteka do wyświetlania ładowania w aplikacjach React, wykorzystana dokładnie w tym celu.
+1. Run the app in development mode:
 
-- Vite: Szybki i minimalistyczny bundler dla aplikacji frontendowych, wykorzystany do budowania aplikacji.
+    ```bash
+    yarn dev
+    ```
 
-# Funkcje
+### Server installation
 
-- Wyświetlanie danych o kanałach pozyskania klientów: Aplikacja pobiera dane z bazy danych (CRUD) dotyczące kanałów pozyskania klientów, takich jak nazwa kanału i liczba klientów zdobytych danym kanałem (np. YouTube), a następnie wyświetla je na interfejsie użytkownika.
+**Note:** The server app requires a database to work. Make sure you have one set up before proceeding and that it's running. You also need the database credentials for the environment variables.
 
-- Tworzenie nowych rekordów: Użytkownik może dodawać nowe rekordy do bazy danych, dodając nowe kanały pozyskania klientów i ich liczby.
+1. Enter the server directory:
 
-- Edycja i usuwanie istniejących rekordów: Użytkownik ma możliwość edytowania lub usuwania istniejących rekordów dotyczących kanałów pozyskania klientów, co umożliwia aktualizację danych w bazie danych.
+    ```bash
+    cd server
+    ```
 
-- Generowanie wykresów: Aplikacja wykorzystuje bibliotekę react-chartjs-2 do generowania interaktywnych wykresów na podstawie danych o kanałach pozyskania klientów, co pozwala na wizualizację tych danych w postaci wykresów.
+1. Run the setup script:
 
-- Obsługa błędów: Aplikacja jest zoptymalizowana pod kątem obsługi błędów, takich jak błędy komunikacji z serwerem, błędy walidacji danych itp. Dzięki temu użytkownicy otrzymują odpowiednie komunikaty o błędach, co poprawia użyteczność aplikacji.
+    ```bash
+    composer setup
+    ```
 
-- Powiadomienia w formie toastów: Aplikacja wykorzystuje elementy biblioteki Bootstrap do wyświetlania powiadomień w formie toastów, które informują użytkownika o sukcesie lub niepowodzeniu operacji.
+1. Set the proper values in the `.env` file according to your environment. The most important ones are the database-related variables. (The rest can be left as they are in most cases.)
 
-# Instalacja
+1. Run the server in development mode:
 
-## Wymagania
+    ```bash
+    php artisan serve
+    ```
 
-- PHP 7.4 lub nowszy
-- MySQL 5.7 lub nowszy
-- Node.js 14 lub nowszy
-- Composer 2.0 lub nowszy do zarządzania zależnościami w projekcie backendowym
-- NPM lub Yarn do zarządzania zależnościami w projekcie frontendowym
-- Działająca bazą danych (preferowany MySQL) do przechowywania danych
+**Note:** Both the client and the server apps need to be running for the project to work.
 
-## Krok po kroku
+## Endpoints
 
-1. Sklonuj repozytorium poleceniem
-```
-git clone https://github.com/JakubKorytko/AcquisitionChannels.git
-```
-2. Przejdź do folderu "server" i wykonaj polecenie:
-```
-composer install
-```
+The client app is a single-page application and is available at the root URL (`/`).
+It uses the server app for authentication and data storage.
+There is no need to use the server app directly, but if you want to (or want to use the API for something else), here are the available endpoints:
 
-3. Skopiuj plik ".env.example" z folderu "server" i zmień jego nazwę na ".env". W pliku ".env" ustaw parametry połączenia z bazą danych. Przykładowe ustawienia:
-```
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=laravel
-DB_USERNAME=root
-DB_PASSWORD=
-```
+- `GET /` - not used at the moment, displays "API is running" message
+- `GET /status` - get the server status (returns `OK` if the server is running, status code: `200`)
+- `GET /channels/read` - get all channels in form of a JSON array
+- `POST /channels/create` - create a new channel, payload:
+  - `name` - channel name (unique, required, string, min: 1, max: 65535)
+  - `clients` - number of clients (required, integer, min: 0, max: 2147483647)
+- `PUT /channels/update/{id}` - update a channel, payload:
+  - `name` - channel name (unique, required, string, min: 1, max: 65535)
+  - `clients` - number of clients (required, integer, min: 0, max: 2147483647)
+- `DELETE /channels/delete/{id}` - delete a channel
 
-W pliku ".env" znajdują się również inne ustawienia, które można zmienić wedle uznania. Np. ustawienie "SERVER_PORT" na 3000 spowoduje, że serwer będzie dostępny pod adresem "http://127.0.0.1:3000".
+## Production build
 
-4. Wykonaj migrację bazy danych poleceniem:
-```
-php artisan migrate
-```
+### Build client
 
-5. Wykonaj seedowanie bazy danych poleceniem:
-```
-php artisan db:seed
-```
+1. Enter the client directory:
 
-6. Stwórz klucz aplikacji poleceniem:
-```
-php artisan key:generate
-```
+    ```bash
+    cd client
+    ```
 
-7. Uruchom serwer backendowy poleceniem:
-```
-php artisan serve
-```
+1. Build the app for production:
 
-8. Przejdź do folderu "client" i wykonaj polecenie:
-```
-npm install
-```
-lub
-```
-yarn install
-```
+    ```bash
+    yarn build
+    ```
 
-9. Uruchom serwer frontendowy poleceniem:
-```
-npm run dev
-```
-lub
-```
-yarn dev
-```
+The build will be located in the `client/dist` directory.
 
-Aplikacja jest dostępna pod adresem "http://localhost:5173" (domyślny port).
+### Prepare server
 
-# Konfiguracja
+1. Enter the server directory:
 
-## Zmiana domyślnego adresu klienta (Cors)
+    ```bash
+    cd server
+    ```
 
-Aby uruchomić klienta na innym adresie niż domyślny, należy ustawić zmienną środowiskową "PORT" przed uruchomieniem klienta. Przykładowe ustawienie:
-```
-PORT=5173
-```
+1. Edit the `.env` file and set the `APP_ENV` variable to `production` and the `APP_DEBUG` variable to `false`.
 
-W przypadku użycia innego adresu niż "http://localhost" lub "http://127.0.0.1" (porty są dowolne) do uruchomienia aplikacji, należy zmienić ustawienia CORS w pliku "server/app/Http/Middleware/Cors.php". Wartość zmiennej "allowed_origins" powinna zawierać adres serwera frontendowego.
+1. Make sure that database credentials are set properly and that the database is running.
 
-## Zmiana domyślnego adresu serwera
+1. Run the following command:
 
-Aby zmienić port domyślny serwera, należy zmienić ustawienia w pliku ".env". Wartość zmiennej "SERVER_PORT" powinna zawierać port serwera.
+    ```bash
+    composer prod
+    ```
 
-W przypadku użycia innego adresu niż domyślny do uruchomienia serwera backendowego, należy zmienić ustawienia w pliku "client/src/utils/api.util.js". Wartość zmiennej `url` (3 linijka) powinna zawierać adres serwera backendowego wraz z portem (bez slasha końcowego).
+The server is now ready to be deployed.
 
-# Ścieżki API
+## Tests
 
-## GET /channels/read
+---
 
-Zwraca listę wszystkich kanałów pozyskania klientów.
+<span style="color: red; font-weight: bold">As for the `v0.1.0` version, the tests do not cover the majority of the code, and most of the existing tests do not pass due to changes in the project structure. This will be fixed in the `v0.1.1` or `v0.1.2` patch.
+</span>
 
-## POST /channels/create
+---
 
-Tworzy nowy kanał pozyskania klientów.
+To run the client tests, use the following command **in the `client` directory**:
 
-### Parametry
-
-- name: nazwa kanału pozyskania klientów (string, wymagany)
-- clients: liczba klientów pozyskanych przez kanał (int, wymagany)
-
-## PUT /channels/update/{id}
-
-Aktualizuje istniejący kanał pozyskania klientów.
-
-### Parametry
-
-- name: nowa nazwa kanału pozyskania klientów (string, wymagany)
-- clients: nowa liczba klientów pozyskanych przez kanał (int, wymagany)
-
-## DELETE /channels/delete/{id}
-
-Usuwa istniejący kanał pozyskania klientów.
-
-# Testy
-
-## Testowanie serwera
-
-Testy zostały napisane przy użyciu frameworka PHPUnit. Aby uruchomić testy, należy przejść do folderu "server" i wykonać polecenie:
-```
-php artisan test
-```
-
-## Testowanie klienta
-
-Testy zostały napisane przy użyciu biblioteki React Testing Library oraz Jest. Aby uruchomić testy, należy przejść do folderu "client" i wykonać polecenie:
-```
-npm run test
-```
-lub
-```
+```bash
 yarn test
 ```
+
+Or, to run the server tests, use the following command **in the `server` directory**:
+
+```bash
+composer test
+```
+
+## Contributing
+
+If you find issues or have suggestions for improvements,
+feel free to open an issue or submit a pull request.
+Contributions are welcome!
+
+## Contact
+
+If you have any questions, feel free to contact me at <jakub@korytko.me>.
+
+## License
+
+This project is released under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## TODO / Upcoming features
+
+This is a list of features that lead to the `v0.2.0` release:
+
+(This list is not exhaustive and may change at any time.
+Patch versions may and probably will be released in the meantime.
+Keep in mind that the order of the items is not necessarily the order in which they will be implemented.)
+
+- [ ] Add more tests and fix the existing ones
+- [ ] Add the authentication system
+- [ ] Improve the UI
+- [ ] Clean up the code
+- [ ] Add new technologies (for both the client and the server) and refactor the code accordingly
+- [ ] Change Laravel to JavaScript-based backend (probably Node.js)
+- [ ] Implement CI/CD
+- [ ] Look for and fix potential security issues, vulnerabilities, and bugs
