@@ -175,8 +175,7 @@ The server is now ready to be deployed.
 
 ---
 
-<span style="color: red; font-weight: bold">As for the `v0.1.0` version, the tests do not cover the majority of the code, and most of the existing tests do not pass due to changes in the project structure. This will be fixed in the `v0.1.1` or `v0.1.2` patch.
-</span>
+**As for the `v0.1.0` version, the tests do not cover the majority of the code, and most of the existing tests do not pass due to changes in the project structure. This will be fixed in the `v0.1.1` or `v0.1.2` patch.**
 
 ---
 
