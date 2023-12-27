@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('acquisition_channels', function (Blueprint $table) {
+        Schema::create('data_graphs', function (Blueprint $table) {
             $table->id();
             $table->string("name");
             $table->integer("clients");
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('acquisition_channels');
+        Schema::dropIfExists('data_graphs');
     }
 };

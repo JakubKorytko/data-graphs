@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AcquisitionChannel;
+use App\Models\DataGraph;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 
-class AcquisitionChannelController extends Controller
+class DataGraphController extends Controller
 {
 
     public static function action(Request $request, $action, $data = null)
@@ -19,31 +19,31 @@ class AcquisitionChannelController extends Controller
 
         switch ($action) {
             case 'create':
-                return AcquisitionChannel::create($request->post());
+                return DataGraph::create($request->post());
             case 'update':
                 if (!isset($data["name"]) || !isset($data["clients"]) || !isset($data['id'])) return false;
-                return AcquisitionChannel::where('id', '=', $data["id"])->update($data);
+                return DataGraph::where('id', '=', $data["id"])->update($data);
             case 'delete':
                 if (!isset($data["id"])) return false;
-                return AcquisitionChannel::where('id', '=', $data["id"])->delete();
+                return DataGraph::where('id', '=', $data["id"])->delete();
             default:
                 return false;
         }
     }
 
     public static $messages_name = [
-        'required' => 'Nazwa kanału jest wymagana.',
-        'unique' => 'Istnieje już kanał o takiej nazwie.',
-        'max' => 'Nazwa może zawierać maksymalnie :max znaków.',
-        'min' => 'Nazwa musi zawierać minimum :min znaków.',
-        'regex' => 'Nazwa kanału może zawierać tylko litery, cyfry i spacje.',
+        'required' => 'Channel name is required.',
+        'unique' => 'Channel with this name already exists.',
+        'max' => 'Channel name must be maximum :max characters long.',
+        'min' => 'Channel name must be minimum :min characters long.',
+        'regex' => 'Channel name must contain only letters, numbers and spaces.'
     ];
 
     public static $messages_clients = [
-        'required' => 'Pole :attribute jest wymagane.',
-        'max' => 'Liczba klientów musi być równa lub mniejsza niż :max.',
-        'min' => 'Liczba klientów musi być równa lub większa niż :min.',
-        'integer' => 'Liczba klientów musi być liczbą całkowitą.'
+        'required' => 'The :attribute field is required.',
+        'max' => 'Number of clients must be less than or equal to :max.',
+        'min' => 'Number of clients must be greater than or equal to :min.',
+        'integer' => 'Number of clients must be an integer.'
     ];
 
     public static $name_size = 65535;
@@ -51,13 +51,13 @@ class AcquisitionChannelController extends Controller
 
     public function read(Request $request)
     {
-        $columns = Schema::getColumnListing('acquisition_channels');
+        $columns = Schema::getColumnListing('data_graphs');
         $columns = array_diff($columns, ['created_at', 'updated_at']);
 
-        AcquisitionChannelController::action($request, 'read');
+        DataGraphController::action($request, 'read');
 
-        $clients_size = AcquisitionChannelController::$clients_size;
-        $name_size = AcquisitionChannelController::$name_size;
+        $clients_size = DataGraphController::$clients_size;
+        $name_size = DataGraphController::$name_size;
 
         $customColumnsProperties = [
             'name' => ['type' => 'string', 'size' => $name_size], // VARCHAR max size
@@ -69,7 +69,7 @@ class AcquisitionChannelController extends Controller
         $data = [
             'columns' => $columns,
             'columns_properties' => $customColumnsProperties,
-            'channels' => AcquisitionChannel::select("id", "name", "clients")
+            'channels' => DataGraph::select("id", "name", "clients")
                 ->paginate($limit)
         ];
 
@@ -78,15 +78,15 @@ class AcquisitionChannelController extends Controller
 
     public static function find($column, $value)
     {
-        $record = AcquisitionChannel::where($column, '=', $value)->first();
+        $record = DataGraph::where($column, '=', $value)->first();
         if ($record === null) return false;
         return $record;
     }
 
     public static function customValidate($name, $clients)
     {
-        $messages_name = AcquisitionChannelController::$messages_name;
-        $messages_clients = AcquisitionChannelController::$messages_clients;
+        $messages_name = DataGraphController::$messages_name;
+        $messages_clients = DataGraphController::$messages_clients;
 
         $validator_name = Validator::make(["name" => $name['value']], $rules = [
             'name' => $name['pattern']
@@ -106,12 +106,12 @@ class AcquisitionChannelController extends Controller
 
     public function create(Request $request)
     {
-        $clients_size = AcquisitionChannelController::$clients_size;
-        $name_size = AcquisitionChannelController::$name_size;
+        $clients_size = DataGraphController::$clients_size;
+        $name_size = DataGraphController::$name_size;
 
         $name = [
             'value' => $request->name,
-            'pattern' => 'required|unique:acquisition_channels|max:' . $name_size . '|min:1|regex:/^[a-zA-Z0-9 ]*$/'
+            'pattern' => 'required|unique:data_graphs|max:' . $name_size . '|min:1|regex:/^[a-zA-Z0-9 ]*$/'
         ];
 
         $clients = [
@@ -127,10 +127,10 @@ class AcquisitionChannelController extends Controller
             ], 400);
         } else {
 
-            AcquisitionChannelController::action($request, 'create');
+            DataGraphController::action($request, 'create');
 
             return response()->json([
-                'message' => 'Kanał został dodany pomyślnie.'
+                'message' => 'Channel created successfully.'
             ], 201);
         }
     }
@@ -138,8 +138,8 @@ class AcquisitionChannelController extends Controller
     public function update(Request $request, $key)
     {
 
-        $clients_size = AcquisitionChannelController::$clients_size;
-        $name_size = AcquisitionChannelController::$name_size;
+        $clients_size = DataGraphController::$clients_size;
+        $name_size = DataGraphController::$name_size;
 
 
         $name = [
@@ -161,18 +161,18 @@ class AcquisitionChannelController extends Controller
         } else {
             if (!$this->find('id', $key)) {
                 return response()->json([
-                    'message' => 'Kanał, który próbujesz zaktualizować nie istnieje.'
+                    'message' => 'Channel you are trying to update does not exist.'
                 ], 404);
             } else {
 
-                AcquisitionChannelController::action($request, 'update', [
+                DataGraphController::action($request, 'update', [
                     "name" => $name['value'],
                     "clients" => $clients['value'],
                     "id" => $key
                 ]);
 
                 return response()->json([
-                    'message' => 'Kanał został zaktualizowany pomyślnie.'
+                    'message' => 'Channel updated successfully.'
                 ], 200);
             }
         }
@@ -182,16 +182,16 @@ class AcquisitionChannelController extends Controller
     {
         if (!$key) {
             return response()->json([
-                'message' => 'Nie podano klucza kanału.'
+                'message' => 'Channel key is required.'
             ], 400);
         }
 
         if (!$this->find('id', $key)) {
             return response()->json([
-                'message' => 'Kanał, który próbujesz usunąć nie istnieje.'
+                'message' => 'Channel you are trying to delete does not exist.'
             ], 404);
         } else {
-            AcquisitionChannelController::action($request, 'delete', [
+            DataGraphController::action($request, 'delete', [
                 "id" => $key
             ]);
 

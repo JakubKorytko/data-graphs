@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use App\Http\Controllers\AcquisitionChannelController;
+use App\Http\Controllers\DataGraphController;
 
 class RoutesTest extends TestCase
 {
@@ -37,11 +37,11 @@ class RoutesTest extends TestCase
                 'columns_properties' => [
                     'name' => [
                         'type' => 'string',
-                        'size' => AcquisitionChannelController::$name_size
+                        'size' => DataGraphController::$name_size
                     ],
                     'clients' => [
                         'type' => 'number',
-                        'size' => AcquisitionChannelController::$clients_size
+                        'size' => DataGraphController::$clients_size
                     ]
                 ]
             ]
@@ -56,7 +56,7 @@ class RoutesTest extends TestCase
 
         while($try<$max_try && $res) {
             $try++;
-            $res = AcquisitionChannelController::find("name", "test".$try);
+            $res = DataGraphController::find("name", "test".$try);
         }
 
         $response = $this->post("/channels/create".RoutesTest::$parameter, [
@@ -71,23 +71,23 @@ class RoutesTest extends TestCase
     }
 
     public function test_data_update_route(): void {
-            
+
             $try = -1;
             $max_try = 1000;
             $res = false;
-    
+
             while($try<$max_try && !$res) {
                 $try++;
-                $res = AcquisitionChannelController::find("id", $try);
+                $res = DataGraphController::find("id", $try);
             }
 
             $url = "/channels/update/".($try === $max_try ? -1 : $try).RoutesTest::$parameter;
-    
+
             $response = $this->put($url, [
                 'name' => 'test',
                 'clients' => 0
             ]);
-    
+
             if ($try === $max_try)
                 $response->assertStatus(404);
             else
@@ -95,20 +95,20 @@ class RoutesTest extends TestCase
     }
 
     public function test_data_delete_route(): void {
-                
+
             $try = -1;
             $max_try = 1000;
             $res = false;
-    
+
             while($try<$max_try && !$res) {
                 $try++;
-                $res = AcquisitionChannelController::find("id", $try);
+                $res = DataGraphController::find("id", $try);
             }
-    
+
             $url = "/channels/delete/".($try === $max_try ? -1 : $try).RoutesTest::$parameter;
 
             $response = $this->delete($url);
-    
+
             if ($try === $max_try)
                 $response->assertStatus(404);
             else

@@ -18,7 +18,7 @@ class DatabaseTest extends TestCase
 
         DB::transaction(function () {
 
-            DB::statement('CREATE TEMPORARY TABLE IF NOT EXISTS `tempChannels` LIKE `acquisition_channels`');
+            DB::statement('CREATE TEMPORARY TABLE IF NOT EXISTS `tempChannels` LIKE `data_graphs`');
 
             $condition = 'name >= "test" AND name <= "test1000"';
 
@@ -43,7 +43,7 @@ class DatabaseTest extends TestCase
             if ($freeName === 1000) throw new Error("No free name found. Please delete some test channels.");
 
             DB::insert('insert into tempChannels (id, name, clients) values (?, ?, ?)', [null, 'test' . $freeName, 0]);
-            
+
             $found = DB::table('tempChannels')->select('id')->where('name', '=', 'test' . $freeName)->first();
 
             assertTrue($found !== null);

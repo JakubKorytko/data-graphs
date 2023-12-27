@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AcquisitionChannelController;
+use App\Http\Controllers\DataGraphController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,10 +24,10 @@ Route::get("/status", function () {
     ], 200);
 });
 
-Route::get('/channels/read', [AcquisitionChannelController::class, 'read']);
+Route::get('/channels/read', [DataGraphController::class, 'read']);
 
-Route::post('/channels/create', [AcquisitionChannelController::class, 'create']);
+Route::post('/channels/create', [DataGraphController::class, 'create']);
 
-Route::put('/channels/update/{id}', [AcquisitionChannelController::class, 'update']);
+Route::put('/channels/update/{id}', [DataGraphController::class, 'update']);
 
-Route::delete('/channels/delete/{id}', [AcquisitionChannelController::class, 'delete']);
+Route::delete('/channels/delete/{id}', [DataGraphController::class, 'delete']);

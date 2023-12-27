@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\Http\Controllers\AcquisitionChannelController;
-use App\Models\AcquisitionChannel;
+use App\Http\Controllers\DataGraphController;
+use App\Models\DataGraph;
 use GuzzleHttp\Psr7\Request;
 use Tests\TestCase;
 
@@ -17,8 +17,8 @@ class ValidationTest extends TestCase
         $column = "name";
         $value = "test";
 
-        $record_where = AcquisitionChannel::where($column, '=', $value)->first();
-        $record_find = AcquisitionChannelController::find($column, $value);
+        $record_where = DataGraph::where($column, '=', $value)->first();
+        $record_find = DataGraphController::find($column, $value);
 
         if ($record_where === null) {
             $this->assertTrue($record_find === false);
@@ -30,18 +30,18 @@ class ValidationTest extends TestCase
     public function test_action(): void
     {
         $request = new \Illuminate\Http\Request();
-        
+
         $request->replace(["test" => "true"]);
 
-        $res = AcquisitionChannelController::action($request, "create");
+        $res = DataGraphController::action($request, "create");
 
         $this->assertTrue($res);
     }
 
     public function test_validation(): void
     {
-        $clients_size = AcquisitionChannelController::$clients_size;
-        $name_size = AcquisitionChannelController::$name_size;
+        $clients_size = DataGraphController::$clients_size;
+        $name_size = DataGraphController::$name_size;
 
         $name = [
             'pattern' => 'required|max:' . $name_size . '|min:1|regex:/^[a-zA-Z0-9 ]*$/'
@@ -70,7 +70,7 @@ class ValidationTest extends TestCase
                 $name = [...$name, "value" => $data[0]];
                 $clients = [...$clients, "value" => $data[1]];
 
-                $this->assertTrue(AcquisitionChannelController::customValidate($name, $clients) === true);
+                $this->assertTrue(DataGraphController::customValidate($name, $clients) === true);
             }
 
             foreach ($value["incorrect"] as $incorrect) {
@@ -78,7 +78,7 @@ class ValidationTest extends TestCase
                 $name = [...$name, "value" => $data[0]];
                 $clients = [...$clients, "value" => $data[1]];
 
-                $this->assertTrue(AcquisitionChannelController::customValidate($name, $clients) !== true);
+                $this->assertTrue(DataGraphController::customValidate($name, $clients) !== true);
             }
         }
 
