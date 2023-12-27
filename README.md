@@ -1,6 +1,6 @@
 # Data Graphs
 
-[![Version](https://img.shields.io/github/package-json/v/JakubKorytko/data-graphs?style=for-the-badge)](https://img.shields.io/github/v/tag/JakubKorytko/data-graphs?style=for-the-badge&label=version)
+[![Version](https://img.shields.io/github/v/tag/JakubKorytko/data-graphs?style=for-the-badge&label=version)](https://img.shields.io/github/v/tag/JakubKorytko/data-graphs?style=for-the-badge&label=version)
 [![License](https://img.shields.io/github/license/JakubKorytko/data-graphs?style=for-the-badge)](https://img.shields.io/github/license/JakubKorytko/data-graphs?style=for-the-badge&label=license)
 
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
