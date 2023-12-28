@@ -111,7 +111,7 @@ In today's dynamic landscape, where data drives decision making across industrie
 1. Run the server in development mode:
 
     ```bash
-    php artisan serve
+    composer serve
     ```
 
 **Note:** Both the client and the server apps need to be running for the project to work.
@@ -149,7 +149,8 @@ There is no need to use the server app directly, but if you want to (or want to 
     yarn build
     ```
 
-The build will be located in the `client/dist` directory.
+The build will be located in the `client/dist` directory.\
+You can run it using a `yarn preview` command from the `client` directory.
 
 ### Prepare server
 
@@ -159,8 +160,6 @@ The build will be located in the `client/dist` directory.
     cd server
     ```
 
-1. Edit the `.env` file and set the `APP_ENV` variable to `production` and the `APP_DEBUG` variable to `false`.
-
 1. Make sure that database credentials are set properly and that the database is running.
 
 1. Run the following command:
@@ -169,7 +168,16 @@ The build will be located in the `client/dist` directory.
     composer prod
     ```
 
-The server is now ready to be deployed.
+1. Run the following command:
+
+    ```bash
+    yarn prod
+    ```
+
+1. Edit the `.env` file and set the `APP_ENV` variable to `production` and the `APP_DEBUG` variable to `false`.
+
+The server is now ready to be deployed.\
+You can run it using a `composer serve` command from the `server` directory.
 
 ## Tests
 
