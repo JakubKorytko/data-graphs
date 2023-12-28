@@ -70,7 +70,7 @@ In today's dynamic landscape, where data drives decision making across industrie
     cd data-graphs
     ```
 
-**Note:** Install & run the client and the server apps in separate terminals.\
+**Note:** Install & run the client and the server apps (next steps) in separate terminals starting from the project directory.
 Running the apps will freeze the terminal until you stop them.
 
 ### Client installation
@@ -95,8 +95,7 @@ Running the apps will freeze the terminal until you stop them.
 
 ### Server installation
 
-**Note:** The server app requires a database to work. Make sure you have one set up before proceeding and that it's running.\
-You also need the database credentials for the environment variables.
+**Note:** The server app requires a database to work. Make sure you have one set up before proceeding and that it's running. You also need the database credentials for the environment variables.
 
 1. Enter the server directory:
 
