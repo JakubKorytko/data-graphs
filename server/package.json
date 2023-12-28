@@ -2,7 +2,8 @@
     "private": true,
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "prod": "yarn install && yarn build"
     },
     "devDependencies": {
         "axios": "^1.1.2",

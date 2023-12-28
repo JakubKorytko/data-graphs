@@ -54,7 +54,7 @@
         "test": [
             "@php artisan test"
         ],
-        "dev": [
+        "serve": [
             "@php artisan serve"
         ],
         "env": [
@@ -73,8 +73,7 @@
             "@php artisan config:cache",
             "@php artisan event:cache",
             "@php artisan route:cache",
-            "@php artisan optimize",
-            "@yarn build"
+            "@php artisan optimize"
         ]
     },
     "extra": {
