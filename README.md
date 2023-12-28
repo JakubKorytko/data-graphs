@@ -34,6 +34,7 @@
     - [Build client](#build-client)
     - [Prepare server](#prepare-server)
   - [Tests](#tests)
+  - [Troubleshooting](#troubleshooting)
   - [Contributing](#contributing)
   - [Contact](#contact)
   - [License](#license)
@@ -201,6 +202,27 @@ Or, to run the server tests, use the following command **in the `server` directo
 ```bash
 composer test
 ```
+
+## Troubleshooting
+
+If you are using Windows or your git client converts line endings to CRLF,
+you may encounter the following error when trying to run the client app:
+
+```bash
+error Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+```
+
+This is caused by the fact that the project uses the eslint.
+To fix this, you can either:
+
+- change the line endings to LF (recommended)
+  - by simply running `yarn eslint --fix` in the `client` directory
+- disable (or change) the eslint rule
+  - read more about it [here](https://eslint.style/rules/js/linebreak-style)
+
+Note that if you change the line endings to LF and decide not to disable the eslint rule,
+your editor or git client may convert them back to CRLF.
+Make sure your editor and git config are set up correctly.
 
 ## Contributing
 
