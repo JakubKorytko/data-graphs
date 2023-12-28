@@ -70,6 +70,9 @@ In today's dynamic landscape, where data drives decision making across industrie
     cd data-graphs
     ```
 
+**Note:** Install & run the client and the server apps in separate terminals.\
+Running the apps will freeze the terminal until you stop them.
+
 ### Client installation
 
 1. Enter the client directory:
@@ -92,7 +95,8 @@ In today's dynamic landscape, where data drives decision making across industrie
 
 ### Server installation
 
-**Note:** The server app requires a database to work. Make sure you have one set up before proceeding and that it's running. You also need the database credentials for the environment variables.
+**Note:** The server app requires a database to work. Make sure you have one set up before proceeding and that it's running.\
+You also need the database credentials for the environment variables.
 
 1. Enter the server directory:
 
