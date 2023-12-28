@@ -186,7 +186,7 @@ You can run it using a `composer serve` command from the `server` directory.
 
 ---
 
-**As for the `v0.1.0` version, the tests do not cover the majority of the code, and most of the existing tests do not pass due to changes in the project structure. This will be fixed in the `v0.1.1` or `v0.1.2` patch.**
+**As for the `v0.1.1` version, the tests do not cover the majority of the code, and most of the existing tests do not pass due to changes in the project structure. This will be fixed in the next patch.**
 
 ---
 
